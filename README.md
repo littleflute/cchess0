@@ -1,2 +1,3 @@
-### [v0.0.2](https://github.com/littleflute/cchess0/edit/master/README.md)
+### [v0.0.3](https://github.com/littleflute/cchess0/edit/master/README.md)
 ### [i.html](i.html)
+### [https://littleflute.github.io/cchess](https://littleflute.github.io/cchess)
