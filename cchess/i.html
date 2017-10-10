@@ -41,12 +41,8 @@ label {
     --></style>
   </head>
   <body>
-    <div id = "xddbgDiv" style="border:1px red solid;">xddbgDiv_V0.0.2</div>
-    <button id = "xd1" onclick="xd1();">xd1</button>
-
-    <div style="text-align:center;font-size:28px;font-family:黑体">xd cchess
-      <a href="https://github.com/littleflute/cchess0/edit/master/cchess/i.html">V0.2.1</a>
-    </div>
+    <div id = "xdMainDiv" style="border:1px green solid;">xdMainDiv_V0.0.2</div> 
+ 
     <div style="height:16px"></div>
     <div style="text-align:center;white-space:nowrap">
       <span class="td" style="margin-right:10px">
@@ -101,9 +97,57 @@ function createOption(text, value, ie8) {
   }
   return opt;
 }
+function blClass()
+{
+  this.blBtn = function(oBoss,id,html){
+    var r = document.getElementById(id);
+    if(!r){
+        r = document.createElement("button");
+        r.id = id;
+    	r.innerHTML = html; 
+        r.style.backgroundColor="green";
+    	if(oBoss!=null)oBoss.appendChild(r);
+    }
+    return r;
+  }
+  this.blDiv = function (oBoss,id,html){
+    var r = document.getElementById(id);
+    if(!r){
+        r = document.createElement("div");
+        r.id = id;
+        r.style.border = "1px solid #3d3d3d";
+      //  r.style.position = "fixed";
+        r.style.top	=0; 
+        r.style.backgroundColor="rgb(0,100,120)"; 
 
-var xddbgDiv = document.getElementById("xddbgDiv");
-xddbgDiv.v	= "xddbgDiv_v0.0.3";
+    	r.innerHTML = html; 
+    	if(oBoss!=null) oBoss.appendChild(r);
+    }
+    return r;
+  }
+}
+//*
+var xm		= document.getElementById("xdMainDiv"); 
+ 
+xm.blObj	= new blClass;
+xm.run		= function(){
+	var bOnOff = this.blObj.blBtn ( this,"bOnOff","On/Off"); 
+	var htmlTitle = 'xd cchess <a target = "_blank" href="https://github.com/littleflute/cchess0/edit/master/cchess/i.html">V0.2.2</a>'; 
+	var dTitle = this.blObj.blDiv ( this,"dTitle",htmlTitle);
+	dTitle.style="text-align:center;font-size:28px;font-family:黑体";
+	var d = this.blObj.blDiv ( this,"xddbgDiv","xddbgDiv");
+	d.v	= "xd1_v0.3.0"; 
+	bOnOff.onclick = function ()
+	{ 
+		new Audio("sounds/click.wav").play();
+		this.style.backgroundColor = this.style.backgroundColor=="red"?"green":"red";		
+		if(this.style.backgroundColor=="red"){ d.style.display = "none";dTitle.style.display = "none";}
+		else {d.style.display = "block";dTitle.style.display = "block";}
+	}
+}
+xm.run();
+//*/
+ 
 var xdObjBoard = new Board(container, "images/", "sounds/");
 var board = xdObjBoard;
 
@@ -165,11 +209,7 @@ function moveList_change() {
   }
   board.flushBoard();
 }
-function xd1()
-{
-	alert("xd1");
-	new Audio("sounds/click.wav").play();
-}
+
     --></script>
   </body>
 </html>
