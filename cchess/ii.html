@@ -70,7 +70,7 @@ function blClass()
       b.id = b.innerHTML = i;
       if(i[0]=="b"&&i[1]=="l") b.style.backgroundColor = "yellow";
       oBoss.appendChild(b);
-      var d = document.createElement("div");
+      var d = document.createElement("textarea");
       d.innerHTML = obj[i];
       d.style.border = "blue 1px solid";
       d.style.backgroundColor = "green";
@@ -85,7 +85,7 @@ var xm		= document.getElementById("xdMainDiv");
  
 xm.blObj	= new blClass;
 xm.run		= function(){
-	var v_run 	= "v0.4.7";
+	var v_run 	= "v0.5.0";
 	var bOnOff = this.blObj.blBtn ( this,"bOnOff","On/Off"); 
 	var bTest1 = this.blObj.blBtn ( this,"bTest1","bTest1"); 
 	var htmlTitle = 'xd cchess <a target = "_blank" href="https://github.com/littleflute/cchess0/edit/master/cchess/ii.html">'+v_run+'</a>'; 
@@ -105,7 +105,7 @@ xm.run		= function(){
 	{   
 		return function(){
         	var o = this_.blObj;
-            o.blShowObj2Div(divShowObj,xdObjBoard);	
+            o.blShowObj2Div(divShowObj,xdObjBoard.pos);	
         };
 	}(this);
  	BOARD_WIDTH 	= BOARD_WIDTH/2;
