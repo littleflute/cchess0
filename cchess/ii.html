@@ -53,21 +53,47 @@ function blClass()
     }
     return r;
   }
-}
+  this.blShowObj2Div = function(oBoss,obj){ 
+    if(!oBoss) {
+       oBoss = document.createElement("div");
+       oBoss.id = "divBlShowObj";
+       oBoss.style.border = "green 1px solid";
+       document.body.appendChild(oBoss);
+     } 
+    if(!oBoss){
+        alert("boss error!");return;
+    } 
+    oBoss.innerHTML = "";
+    for(i in obj)
+    {
+      var b = document.createElement("button");
+      b.id = b.innerHTML = i;
+      if(i[0]=="b"&&i[1]=="l") b.style.backgroundColor = "yellow";
+      oBoss.appendChild(b);
+      var d = document.createElement("div");
+      d.innerHTML = obj[i];
+      d.style.border = "blue 1px solid";
+      d.style.backgroundColor = "green";
+      d.style.color = "yellow";
+      oBoss.appendChild(d);
+    }
+  }  
+}//END blClass
+
 //*
 var xm		= document.getElementById("xdMainDiv"); 
  
 xm.blObj	= new blClass;
 xm.run		= function(){
+	var v_run 	= "v0.4.7";
 	var bOnOff = this.blObj.blBtn ( this,"bOnOff","On/Off"); 
-	var htmlTitle = 'xd cchess <a target = "_blank" href="https://github.com/littleflute/cchess0/edit/master/cchess/ii.html">V0.3.2</a>'; 
+	var bTest1 = this.blObj.blBtn ( this,"bTest1","bTest1"); 
+	var htmlTitle = 'xd cchess <a target = "_blank" href="https://github.com/littleflute/cchess0/edit/master/cchess/ii.html">'+v_run+'</a>'; 
     htmlTitle += ' <a target="_blank" href="https://littleflute.github.io/cchess0/cchess/ii.html">+me</a>';
     htmlTitle += ' <a target="_blank" href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default">w3Dev</a>';
     
 	var dTitle = this.blObj.blDiv ( this,"dTitle",htmlTitle);
 	dTitle.style="text-align:center;font-size:28px;font-family:黑体";
-	var d = this.blObj.blDiv ( this,"xddbgDiv","xddbgDiv");
-	d.v	= "xd1_v0.3.2"; 
 	bOnOff.onclick = function ()
 	{  
 		new Audio("sounds/click.wav").play();
@@ -75,10 +101,20 @@ xm.run		= function(){
 		if(this.style.backgroundColor=="red"){ d.style.display = "none";dTitle.style.display = "none";}
 		else {d.style.display = "block";dTitle.style.display = "block";}
 	}
+	bTest1.onclick = function (this_)
+	{   
+		return function(){
+        	var o = this_.blObj;
+            o.blShowObj2Div(divShowObj,xdObjBoard);	
+        };
+	}(this);
  	BOARD_WIDTH 	= BOARD_WIDTH/2;
  	BOARD_HEIGHT 	= BOARD_HEIGHT/2;
  	SQUARE_SIZE	= SQUARE_SIZE/2;
+	var d = this.blObj.blDiv ( this,"xddbgDiv","xddbgDiv");
+	d.v	= "xd1_v0.3.6"; 
     var myBoard = this.blObj.blDiv(this,"container","");
+	var divShowObj = this.blObj.blDiv ( this,"divShowObj","divShowObj");
 }
 xm.run();
 //*/
