@@ -1,17 +1,18 @@
+
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>xd cchess II</title>
-    <script type="text/javascript" src="book.js"></script>
-    <script type="text/javascript" src="position.js"></script>
-    <script type="text/javascript" src="search.js"></script>
-    <script type="text/javascript" src="board.js"></script>
-    <script type="text/javascript" src="cchess.js"></script>
+    <script type="text/javascript" src="https://littleflute.github.io/cchess0/cchess/book.js"></script>
+    <script type="text/javascript" src="https://littleflute.github.io/cchess0/cchess/position.js"></script>
+    <script type="text/javascript" src="https://littleflute.github.io/cchess0/cchess/search.js"></script>
+    <script type="text/javascript" src="https://littleflute.github.io/cchess0/cchess/board.js"></script>
+    <script type="text/javascript" src="https://littleflute.github.io/cchess0/cchess/cchess.js"></script>
    
   </head>
   <body>
-    <div id = "xdMainDiv" style="border:1px green solid;">xdMainDiv_V0.0.5</div> 
-    <div id="container"></div>
+    <div id = "xdMainDiv" style="border:1px green solid;">xdMainDiv_V0.0.6</div> 
+    <div id="container" ></div>
 
 
 
@@ -60,11 +61,11 @@ var xm		= document.getElementById("xdMainDiv");
 xm.blObj	= new blClass;
 xm.run		= function(){
 	var bOnOff = this.blObj.blBtn ( this,"bOnOff","On/Off"); 
-	var htmlTitle = 'xd cchess <a target = "_blank" href="https://github.com/littleflute/cchess0/edit/master/cchess/ii.html">V0.2.3</a>'; 
+	var htmlTitle = 'xd cchess <a target = "_blank" href="https://github.com/littleflute/cchess0/edit/master/cchess/ii.html">V0.2.4</a>'; 
 	var dTitle = this.blObj.blDiv ( this,"dTitle",htmlTitle);
 	dTitle.style="text-align:center;font-size:28px;font-family:黑体";
 	var d = this.blObj.blDiv ( this,"xddbgDiv","xddbgDiv");
-	d.v	= "xd1_v0.3.0"; 
+	d.v	= "xd1_v0.3.1"; 
 	bOnOff.onclick = function ()
 	{ 
 		new Audio("sounds/click.wav").play();
@@ -76,7 +77,7 @@ xm.run		= function(){
 xm.run();
 //*/
  
-var xdObjBoard = new Board(container, "images/", "sounds/");
+var xdObjBoard = new Board(container, "https://littleflute.github.io/cchess0/cchess/images/", "https://littleflute.github.io/cchess0/cchess/sounds/");
 var board = xdObjBoard;
 
 board.setSearch(16);
@@ -89,7 +90,7 @@ board.onAddMove = function() {
   var text = (board.pos.sdPlayer == 0 ? space : counter) + move2Iccs(board.mvLast);
   var value = "" + board.mvLast; 
 };
- 
+  
  
 
     --></script>
