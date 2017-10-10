@@ -53,6 +53,21 @@ function blClass()
     }
     return r;
   }
+  this.blImg = function (oBoss,id,src){
+    var r = document.getElementById(id);
+    if(!r){
+        r = document.createElement("img");
+        r.id = id;
+        r.src = src;
+        r.style.border = "1px solid #3d3d3d";
+      //  r.style.position = "fixed";
+        r.style.top	=0; 
+     //   r.style.backgroundColor="rgb(0,100,120)"; 
+ 
+    	if(oBoss!=null) oBoss.appendChild(r);
+    }
+    return r;
+  }
   this.blShowObj2Div = function(oBoss,obj){ 
     if(!oBoss) {
        oBoss = document.createElement("div");
@@ -70,7 +85,7 @@ function blClass()
       b.id = b.innerHTML = i;
       if(i[0]=="b"&&i[1]=="l") b.style.backgroundColor = "yellow";
       oBoss.appendChild(b);
-      var d = document.createElement("textarea");
+      var d = document.createElement("div");
       d.innerHTML = obj[i];
       d.style.border = "blue 1px solid";
       d.style.backgroundColor = "green";
@@ -123,8 +138,8 @@ function blClass()
 var xm		= document.getElementById("xdMainDiv"); 
  
 xm.blObj	= new blClass;
-xm.run		= function(){
-	var v_run 	= "v0.5.7";
+xm.run		= function(v){
+	var v_run = v;
 	var bOnOff = this.blObj.blBtn ( this,"bOnOff","On/Off"); 
 	var bTest1 = this.blObj.blBtn ( this,"bTest1","bTest1"); 
 	var bMoveDiv = this.blObj.blBtn ( this,"bMoveDiv","bMoveDiv"); 
@@ -146,7 +161,8 @@ xm.run		= function(){
 	{   
 		return function(){
         	var o = this_.blObj;
-            o.blShowObj2Div(divShowObj,xdObjBoard.pos);	
+            var oBoss = document.getElementById("mi1");
+            if(oBoss)  o.blShowObj2Div(oBoss,xdObjBoard.pos);	
         };
 	}(this);
     bMoveDiv.onclick = function(this_)
@@ -188,8 +204,10 @@ xm.run		= function(){
 	d.v	= "xd1_v0.3.6"; 
     var myBoard = this.blObj.blDiv(this,"container","");
 	var divShowObj = this.blObj.blDiv ( this,"divShowObj","divShowObj");
-}
-xm.run();
+	var img1 = this.blObj.blImg ( document.body,"img1","https://littleflute.github.io/cchess0/cchess/images/oos.gif");
+    img1.style.width = "26px";
+} 
+xm.run("v0.6.8");
 //*/
  //*
 var xdObjBoard 	= new Board(container, "https://littleflute.github.io/cchess0/cchess/images/", "https://littleflute.github.io/cchess0/cchess/sounds/");
@@ -205,6 +223,12 @@ board.onAddMove = function() {
   var text = (board.pos.sdPlayer == 0 ? space : counter) + move2Iccs(board.mvLast);
   var value = "" + board.mvLast; 
 };
+board.drawSquare = function(sq, selected) {
+  var img = this.imgSquares[this.flipped(sq)];
+  img.src = this.images + PIECE_NAME[this.pos.squares[sq]] + ".gif";
+  img.style.backgroundImage = selected ? "url(" + this.images + "oos29.png)" : "";
+}
+
 //  */
  
 var c		= document.getElementById("container"); 
