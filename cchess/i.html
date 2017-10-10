@@ -41,11 +41,11 @@ label {
     --></style>
   </head>
   <body>
-    <div id = "xddbgDiv" style="border:1px red solid;">xddbgDiv</div>
+    <div id = "xddbgDiv" style="border:1px red solid;">xddbgDiv_V0.0.2</div>
     <button id = "xd1" onclick="xd1();">xd1</button>
 
-    <div style="text-align:center;font-size:28px;font-family:ºÚÌå">xd cchess
-      <a href="https://github.com/littleflute/cchess/edit/master/play/index3.html">V0.1.9</a>
+    <div style="text-align:center;font-size:28px;font-family:é»‘ä½“">xd cchess
+      <a href="https://github.com/littleflute/cchess/edit/master/play/index3.html">V0.2.0</a>
     </div>
     <div style="height:16px"></div>
     <div style="text-align:center;white-space:nowrap">
@@ -75,7 +75,7 @@ label {
         <div><input type="checkbox" class="checkbox" checked onclick="board.setSound(checked)"><label for="chkSound">Sound</label></input></div>
         <div style="height:60px"></div>
         <div class="label">MoveList</div>
-        <div><select id="selMoveList" size="10" style="font-family:ËÎÌå" onchange="moveList_change()">
+        <div><select id="selMoveList" size="10" style="font-family:å®‹ä½“" onchange="moveList_change()">
           <option selected value="0">=== start ===</option>
         </select></div>
       </div></span>
@@ -102,7 +102,11 @@ function createOption(text, value, ie8) {
   return opt;
 }
 
-var board = new Board(container, "images/", "sounds/");
+var xddbgDiv = document.getElementById("xddbgDiv");
+xddbgDiv.v	= "xddbgDiv_v0.0.3";
+var xdObjBoard = new Board(container, "images/", "sounds/");
+var board = xdObjBoard;
+
 board.setSearch(16);
 board.millis = 1000;
 board.computer = 1;
