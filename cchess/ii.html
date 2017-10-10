@@ -12,10 +12,7 @@
    
   </head>
   <body>
-    <div id = "xdMainDiv" style="border:1px green solid;">xdMainDiv_V0.0.6</div> 
-    <div id="container" ></div>
-
-
+    <div id = "xdMainDiv" style="border:1px green solid;">xdMainDiv_V0.0.6</div>  
 
     <script type="text/javascript"><!--
 "use strict";
@@ -62,7 +59,7 @@ var xm		= document.getElementById("xdMainDiv");
 xm.blObj	= new blClass;
 xm.run		= function(){
 	var bOnOff = this.blObj.blBtn ( this,"bOnOff","On/Off"); 
-	var htmlTitle = 'xd cchess <a target = "_blank" href="https://github.com/littleflute/cchess0/edit/master/cchess/ii.html">V0.2.9</a>'; 
+	var htmlTitle = 'xd cchess <a target = "_blank" href="https://github.com/littleflute/cchess0/edit/master/cchess/ii.html">V0.3.0</a>'; 
     htmlTitle += ' <a target="_blank" href="https://littleflute.github.io/cchess0/cchess/ii.html">+me</a>';
 	var dTitle = this.blObj.blDiv ( this,"dTitle",htmlTitle);
 	dTitle.style="text-align:center;font-size:28px;font-family:黑体";
@@ -78,6 +75,7 @@ xm.run		= function(){
  	BOARD_WIDTH 	= BOARD_WIDTH/2;
  	BOARD_HEIGHT 	= BOARD_HEIGHT/2;
  	SQUARE_SIZE	= SQUARE_SIZE/2;
+    var myBoard = this.blObj.blDiv(this,"container","");
 }
 xm.run();
 //*/
