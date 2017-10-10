@@ -21,7 +21,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 "use strict";
-var v_board_js 		= "v0.0.2";
+var v_board_js 		= "board.js:v0.0.4";
 var RESULT_UNKNOWN = 0;
 var RESULT_WIN = 1;
 var RESULT_DRAW = 2;
@@ -121,8 +121,8 @@ function Board(container, images, sounds) {
 }
 
 Board.prototype.playSound = function(soundFile) {
-  var xddbgDiv = document.getElementById("xddbgDiv");
-  xddbgDiv.innerHTML = this.sounds + ":"+ soundFile + ".wav"
+  var d		= document.getElementById("xddbgDiv");
+  d.innerHTML 	= d.v + " "+ v_board_js + " " + this.sounds + ":"+ soundFile + ".wav"
 
   if (!this.sound) {
     return;
@@ -141,7 +141,7 @@ Board.prototype.setSearch = function(hashLevel) {
 
 Board.prototype.flipped = function(sq) {
   return this.computer == 0 ? SQUARE_FLIP(sq) : sq;
-//  return £¨this.computer == 0 || this.computer == 3£© ? SQUARE_FLIP(sq) : sq; //by xd 14:37 2017/9/24 bjt
+//  return ï¼ˆthis.computer == 0 || this.computer == 3ï¼‰ ? SQUARE_FLIP(sq) : sq; //by xd 14:37 2017/9/24 bjt
 }
 
 Board.prototype.computerMove = function() {
@@ -246,15 +246,15 @@ Board.prototype.postAddMove = function(mv, computerMove) {
     if (vlRep > -WIN_VALUE && vlRep < WIN_VALUE) {
       this.playSound("draw");
       this.result = RESULT_DRAW;
-      alertDelay("Ë«·½²»±ä×÷ºÍ£¬ÐÁ¿àÁË£¡");
+      alertDelay("åŒæ–¹ä¸å˜ä½œå’Œï¼Œè¾›è‹¦äº†ï¼");
     } else if (computerMove == (vlRep < 0)) {
       this.playSound("loss");
       this.result = RESULT_LOSS;
-      alertDelay("³¤´ò×÷¸º£¬Çë²»ÒªÆøÄÙ£¡");
+      alertDelay("é•¿æ‰“ä½œè´Ÿï¼Œè¯·ä¸è¦æ°”é¦ï¼");
     } else {
       this.playSound("win");
       this.result = RESULT_WIN;
-      alertDelay("³¤´ò×÷¸º£¬×£ºØÄãÈ¡µÃÊ¤Àû£¡");
+      alertDelay("é•¿æ‰“ä½œè´Ÿï¼Œç¥è´ºä½ å–å¾—èƒœåˆ©ï¼");
     }
     this.postAddMove2();
     this.busy = false;
@@ -272,7 +272,7 @@ Board.prototype.postAddMove = function(mv, computerMove) {
     if (!hasMaterial) {
       this.playSound("draw");
       this.result = RESULT_DRAW;
-      alertDelay("Ë«·½¶¼Ã»ÓÐ½ø¹¥Æå×ÓÁË£¬ÐÁ¿àÁË£¡");
+      alertDelay("åŒæ–¹éƒ½æ²¡æœ‰è¿›æ”»æ£‹å­äº†ï¼Œè¾›è‹¦äº†ï¼");
       this.postAddMove2();
       this.busy = false;
       return;
@@ -288,7 +288,7 @@ Board.prototype.postAddMove = function(mv, computerMove) {
     if (!captured) {
       this.playSound("draw");
       this.result = RESULT_DRAW;
-      alertDelay("³¬¹ý×ÔÈ»ÏÞ×Å×÷ºÍ£¬ÐÁ¿àÁË£¡");
+      alertDelay("è¶…è¿‡è‡ªç„¶é™ç€ä½œå’Œï¼Œè¾›è‹¦äº†ï¼");
       this.postAddMove2();
       this.busy = false;
       return;
@@ -314,7 +314,7 @@ Board.prototype.postAddMove2 = function() {
 }
 
 Board.prototype.postMate = function(computerMove) {
-  alertDelay(computerMove ? "ÇëÔÙ½ÓÔÙÀ÷£¡" : "×£ºØÄãÈ¡µÃÊ¤Àû£¡");
+  alertDelay(computerMove ? "è¯·å†æŽ¥å†åŽ‰ï¼" : "ç¥è´ºä½ å–å¾—èƒœåˆ©ï¼");
   this.postAddMove2();
   this.busy = false;
 }
