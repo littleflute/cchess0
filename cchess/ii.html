@@ -191,12 +191,15 @@ xm.run		= function(v){
 			var mi2 = o.blDiv(main,"mi2","mi2");
 			var btn1 = o.blBtn(mi2,"btn1","btn1","#f12");
 			btn1.onclick = function(){ 
-    			alert(xdObjBoard.drawSquare);
+                 board.computer = 1; 
+				board.restart(STARTUP_FEN[0]);
 			}
 			var btn2 = o.blBtn(mi2,"btn2","btn2","#f12");
 			btn2.onclick = function(){ 
-    			 var i = xdObjBoard.imgSquares[200];
-                 i.onmousedown(); 
+    			 //var i = xdObjBoard.imgSquares[200];
+               //  i.onmousedown();  
+                 board.computer = 0; 
+				board.restart(STARTUP_FEN[0]);
 			}
     		o.blMakeDivMovable(main);
     
@@ -216,7 +219,7 @@ xm.run		= function(v){
 	var img1 = this.blObj.blImg ( document.body,"img1","https://littleflute.github.io/cchess0/cchess/images/oos.gif");
     img1.style.width = "26px";
 } 
-xm.run("v0.7.5");
+xm.run("v0.7.6");
 //*/
  //*
 var xdObjBoard 	= new Board(container, "https://littleflute.github.io/cchess0/cchess/images/", "https://littleflute.github.io/cchess0/cchess/sounds/");
@@ -224,7 +227,9 @@ var board = xdObjBoard;
 
 board.setSearch(16);
 board.millis = 1000;
-board.computer = 1;
+board.computer = -1;
+
+
 board.onAddMove = function() {
   var counter = (board.pos.mvList.length >> 1);
   var space = (counter > 99 ? "    " : "   ");
