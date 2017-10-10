@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>xd cchess II</title>
+    <script type="text/javascript" src="book.js"></script>
+    <script type="text/javascript" src="position.js"></script>
+    <script type="text/javascript" src="search.js"></script>
+    <script type="text/javascript" src="board.js"></script>
+    <script type="text/javascript" src="cchess.js"></script>
+   
+  </head>
+  <body>
+    <div id = "xdMainDiv" style="border:1px green solid;">xdMainDiv_V0.0.5</div> 
+    <div id="container"></div>
+
+
+
+    <script type="text/javascript"><!--
+"use strict";
+
+var STARTUP_FEN = [
+  "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w",
+  "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKAB1R w",
+  "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/R1BAKAB1R w",
+  "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/9/1C5C1/9/RN2K2NR w", 
+];
+ 
+function blClass()
+{
+  this.blBtn = function(oBoss,id,html){
+    var r = document.getElementById(id);
+    if(!r){
+        r = document.createElement("button");
+        r.id = id;
+    	r.innerHTML = html; 
+        r.style.backgroundColor="green";
+    	if(oBoss!=null)oBoss.appendChild(r);
+    }
+    return r;
+  }
+  this.blDiv = function (oBoss,id,html){
+    var r = document.getElementById(id);
+    if(!r){
+        r = document.createElement("div");
+        r.id = id;
+        r.style.border = "1px solid #3d3d3d";
+      //  r.style.position = "fixed";
+        r.style.top	=0; 
+        r.style.backgroundColor="rgb(0,100,120)"; 
+
+    	r.innerHTML = html; 
+    	if(oBoss!=null) oBoss.appendChild(r);
+    }
+    return r;
+  }
+}
+//*
+var xm		= document.getElementById("xdMainDiv"); 
+ 
+xm.blObj	= new blClass;
+xm.run		= function(){
+	var bOnOff = this.blObj.blBtn ( this,"bOnOff","On/Off"); 
+	var htmlTitle = 'xd cchess <a target = "_blank" href="https://github.com/littleflute/cchess0/edit/master/cchess/ii.html">V0.2.3</a>'; 
+	var dTitle = this.blObj.blDiv ( this,"dTitle",htmlTitle);
+	dTitle.style="text-align:center;font-size:28px;font-family:黑体";
+	var d = this.blObj.blDiv ( this,"xddbgDiv","xddbgDiv");
+	d.v	= "xd1_v0.3.0"; 
+	bOnOff.onclick = function ()
+	{ 
+		new Audio("sounds/click.wav").play();
+		this.style.backgroundColor = this.style.backgroundColor=="red"?"green":"red";		
+		if(this.style.backgroundColor=="red"){ d.style.display = "none";dTitle.style.display = "none";}
+		else {d.style.display = "block";dTitle.style.display = "block";}
+	}
+}
+xm.run();
+//*/
+ 
+var xdObjBoard = new Board(container, "images/", "sounds/");
+var board = xdObjBoard;
+
+board.setSearch(16);
+board.millis = 1000;
+board.computer = 1;
+board.onAddMove = function() {
+  var counter = (board.pos.mvList.length >> 1);
+  var space = (counter > 99 ? "    " : "   ");
+  counter = (counter > 9 ? "" : " ") + counter + ".";
+  var text = (board.pos.sdPlayer == 0 ? space : counter) + move2Iccs(board.mvLast);
+  var value = "" + board.mvLast; 
+};
+ 
+ 
+
+    --></script>
+  </body>
+</html>
