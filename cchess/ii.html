@@ -1,6 +1,7 @@
 
 
 
+
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -85,14 +86,14 @@ function blClass()
       b.id = b.innerHTML = i;
       if(i[0]=="b"&&i[1]=="l") b.style.backgroundColor = "yellow";
       oBoss.appendChild(b);
-      var d = document.createElement("div");
+      var d = document.createElement("textarea");
       d.innerHTML = obj[i];
       d.style.border = "blue 1px solid";
       d.style.backgroundColor = "green";
       d.style.color = "yellow";
       oBoss.appendChild(d);
     }
-  }  
+  }  //END this.blShowObj2Div
   
   this.blMakeDivMovable = function (elmnt) {
       var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -162,7 +163,7 @@ xm.run		= function(v){
 		return function(){
         	var o = this_.blObj;
             var oBoss = document.getElementById("mi1");
-            if(oBoss)  o.blShowObj2Div(oBoss,xdObjBoard.pos);	
+            if(oBoss)  o.blShowObj2Div(oBoss,xdObjBoard);	
         };
 	}(this);
     bMoveDiv.onclick = function(this_)
@@ -188,9 +189,14 @@ xm.run		= function(v){
 			title.style =style;
 			var mi1 = o.blDiv(main,"mi1","mi1");
 			var mi2 = o.blDiv(main,"mi2","mi2");
-			var btn1 = o.blBtn(mi2,"btn1","about","#f12");
+			var btn1 = o.blBtn(mi2,"btn1","btn1","#f12");
 			btn1.onclick = function(){ 
-    			myMoveDiv.inf();
+    			alert(xdObjBoard.drawSquare);
+			}
+			var btn2 = o.blBtn(mi2,"btn2","btn2","#f12");
+			btn2.onclick = function(){ 
+    			 var i = xdObjBoard.imgSquares[200];
+                 i.onmousedown(); 
 			}
     		o.blMakeDivMovable(main);
     
@@ -204,13 +210,13 @@ xm.run		= function(v){
  THINKING_TOP = (BOARD_HEIGHT - THINKING_SIZE) >> 1;
 
 	var d = this.blObj.blDiv ( this,"xddbgDiv","xddbgDiv");
-	d.v	= "xd1_v0.3.6"; 
+	d.v	= "xd1_v0.3.7"; 
     var myBoard = this.blObj.blDiv(this,"container","");
 	var divShowObj = this.blObj.blDiv ( this,"divShowObj","divShowObj");
 	var img1 = this.blObj.blImg ( document.body,"img1","https://littleflute.github.io/cchess0/cchess/images/oos.gif");
     img1.style.width = "26px";
 } 
-xm.run("v0.7.0");
+xm.run("v0.7.5");
 //*/
  //*
 var xdObjBoard 	= new Board(container, "https://littleflute.github.io/cchess0/cchess/images/", "https://littleflute.github.io/cchess0/cchess/sounds/");
