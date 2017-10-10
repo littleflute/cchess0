@@ -85,12 +85,13 @@ var xm		= document.getElementById("xdMainDiv");
  
 xm.blObj	= new blClass;
 xm.run		= function(){
-	var v_run 	= "v0.5.0";
+	var v_run 	= "v0.5.1";
 	var bOnOff = this.blObj.blBtn ( this,"bOnOff","On/Off"); 
 	var bTest1 = this.blObj.blBtn ( this,"bTest1","bTest1"); 
 	var htmlTitle = 'xd cchess <a target = "_blank" href="https://github.com/littleflute/cchess0/edit/master/cchess/ii.html">'+v_run+'</a>'; 
     htmlTitle += ' <a target="_blank" href="https://littleflute.github.io/cchess0/cchess/ii.html">+me</a>';
     htmlTitle += ' <a target="_blank" href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default">w3Dev</a>';
+    htmlTitle += ' <a href="..">[..]</a>';
     
 	var dTitle = this.blObj.blDiv ( this,"dTitle",htmlTitle);
 	dTitle.style="text-align:center;font-size:28px;font-family:黑体";
