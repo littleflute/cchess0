@@ -86,12 +86,18 @@ function blClass()
       b.id = b.innerHTML = i;
       if(i[0]=="b"&&i[1]=="l") b.style.backgroundColor = "yellow";
       oBoss.appendChild(b);
-      var d = document.createElement("textarea");
-      d.innerHTML = obj[i];
+      var d = document.createElement("div");
+      d.innerHTML = "";
       d.style.border = "blue 1px solid";
       d.style.backgroundColor = "green";
       d.style.color = "yellow";
       oBoss.appendChild(d);
+      var t = document.createElement("textarea");
+      t.innerHTML = obj[i];
+      t.style.border = "blue 1px solid";
+      t.style.backgroundColor = "green";
+      t.style.color = "yellow";
+      d.appendChild(t);
     }
   }  //END this.blShowObj2Div
   
@@ -219,7 +225,7 @@ xm.run		= function(v){
 	var img1 = this.blObj.blImg ( document.body,"img1","https://littleflute.github.io/cchess0/cchess/images/oos.gif");
     img1.style.width = "26px";
 } 
-xm.run("v0.8.0");
+xm.run("v0.8.1");
 //*/
  //*
 var xdObjBoard 	= new Board(container, "https://littleflute.github.io/cchess0/cchess/images/", "https://littleflute.github.io/cchess0/cchess/sounds/");
