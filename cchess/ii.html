@@ -4,7 +4,342 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>xd cchess II</title>
     <script type="text/javascript" src="https://littleflute.github.io/cchess0/cchess/book.js"></script>
+    <script type="text/javascript" src="https://littleflute.gith
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>xd cchess II</title>
+    <script type="text/javascript" src="https://littleflute.github.io/cchess0/cchess/book.js"></script>
     <script type="text/javascript" src="https://littleflute.github.io/cchess0/cchess/position.js"></script>
+    <script type="text/javascript" src="https://littleflute.github.io/cchess0/cchess/search.js"></script>
+    <script type="text/javascript" src="https://littleflute.github.io/cchess0/cchess/board.js"></script>
+    <script type="text/javascript" src="https://littleflute.github.io/cchess0/cchess/cchess.js"></script>
+   
+  </head>
+  <body>
+    <div id = "xdMainDiv" style="border:1px green solid;">xdMainDiv_V0.0.6</div>  
+
+    <script type="text/javascript"><!--
+"use strict";
+
+var STARTUP_FEN = [
+  "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w",
+  "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKAB1R w",
+  "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/R1BAKAB1R w",
+  "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/9/1C5C1/9/RN2K2NR w", 
+];
+ 
+function blClass()
+{
+  this.blBtn = function(oBoss,id,html,clr){
+    var r = document.getElementById(id);
+    if(!r){
+        r = document.createElement("button");
+        r.id = id;
+    	r.innerHTML = html; 
+        r.style.backgroundColor=clr?clr:"green";
+    	if(oBoss!=null)oBoss.appendChild(r);
+    }
+    return r;
+  }
+  this.blDiv = function (oBoss,id,html){
+    var r = document.getElementById(id);
+    if(!r){
+        r = document.createElement("div");
+        r.id = id;
+        r.style.border = "1px solid #3d3d3d";
+      //  r.style.position = "fixed";
+        r.style.top	=0; 
+        r.style.backgroundColor="rgb(0,100,120)"; 
+
+    	r.innerHTML = html; 
+    	if(oBoss!=null) oBoss.appendChild(r);
+    }
+    return r;
+  }
+  this.blSelect = function (oBoss,id,size) {
+    var r = document.getElementById(id);
+    if(!r){
+      r = document.createElement("SELECT");
+      r.setAttribute("id", id);
+      r.setAttribute("size",size);
+      if(oBoss!=null) oBoss.appendChild(r);
+    }
+    var z = document.createElement("option");
+    z.setAttribute("value", 0);
+    var t = document.createTextNode("=== start ===");
+    z.appendChild(t);
+    r.appendChild(z);
+    r.selectedIndex = 0;
+    return r;
+  }
+  
+  this.blImg = function (oBoss,id,src){
+    var r = document.getElementById(id);
+    if(!r){
+        r = document.createElement("img");
+        r.id = id;
+        r.src = src;
+        r.style.border = "1px solid #3d3d3d";
+      //  r.style.position = "fixed";
+        r.style.top	=0; 
+     //   r.style.backgroundColor="rgb(0,100,120)"; 
+ 
+    	if(oBoss!=null) oBoss.appendChild(r);
+    }
+    return r;
+  }
+  this.blShowObj2Div = function(oBoss,obj){ 
+    if(!oBoss) {
+       oBoss = document.createElement("div");
+       oBoss.id = "divBlShowObj";
+       oBoss.style.border = "green 1px solid";
+       document.body.appendChild(oBoss);
+     } 
+    if(!oBoss){
+        alert("boss error!");return;
+    } 
+    oBoss.innerHTML = "";
+    for(i in obj)
+    {
+      var b = document.createElement("button");
+      b.id = b.innerHTML = i;
+      if(i[0]=="b"&&i[1]=="l") b.style.backgroundColor = "yellow";
+      oBoss.appendChild(b);
+      var d = document.createElement("div");
+      d.innerHTML = "";
+      d.style.border = "blue 1px solid";
+      d.style.backgroundColor = "green";
+      d.style.color = "yellow";
+      oBoss.appendChild(d);
+      var t = document.createElement("textarea");
+      t.innerHTML = obj[i];
+      t.style.border = "blue 1px solid";
+      t.style.backgroundColor = "green";
+      t.style.color = "yellow";
+      d.appendChild(t);
+    }
+  }  //END this.blShowObj2Div
+  
+  this.blMakeDivMovable = function (elmnt) {
+      var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+      if (document.getElementById(elmnt.id + "Header")) {
+        /* if present, the header is where you move the DIV from:*/
+        document.getElementById(elmnt.id + "Header").onmousedown = dragMouseDown;
+      } else {
+        /* otherwise, move the DIV from anywhere inside the DIV:*/
+        elmnt.onmousedown = dragMouseDown;
+      }
+
+      function dragMouseDown(e) {
+        e = e || window.event;
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+      }
+
+      function elementDrag(e) {
+        e = e || window.event;
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      }
+
+      function closeDragElement() {
+        /* stop moving when mouse button is released:*/
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }//END this.blMakeDivMovable
+}//END blClass
+
+//*
+var xm		= document.getElementById("xdMainDiv"); 
+ 
+xm.blObj	= new blClass;
+xm.run		= function(v){
+	var v_run = v;
+	var bOnOff = this.blObj.blBtn ( this,"bOnOff","On/Off"); 
+	var bTest1 = this.blObj.blBtn ( this,"bTest1","bTest1"); 
+	var bMoveDiv = this.blObj.blBtn ( this,"bMoveDiv","bMoveDiv"); 
+	var htmlTitle = 'xd cchess <a target = "_blank" href="https://github.com/littleflute/cchess0/edit/master/cchess/ii.html">'+v_run+'</a>'; 
+    htmlTitle += ' <a target="_blank" href="https://littleflute.github.io/cchess0/cchess/ii.html">+me</a>';
+    htmlTitle += ' <a target="_blank" href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default">w3Dev</a>';
+    htmlTitle += ' <a href="..">[..]</a>';
+    
+	var dTitle = this.blObj.blDiv ( this,"dTitle",htmlTitle);
+	dTitle.style="text-align:center;font-size:28px;font-family:黑体";
+	bOnOff.onclick = function ()
+	{  
+		new Audio("sounds/click.wav").play();
+		this.style.backgroundColor = this.style.backgroundColor=="red"?"green":"red";		
+		if(this.style.backgroundColor=="red"){ d.style.display = "none";dTitle.style.display = "none";}
+		else {d.style.display = "block";dTitle.style.display = "block";}
+	}
+	bTest1.onclick = function (this_)
+	{   
+		return function(){
+        	var o = this_.blObj;
+            var oBoss = document.getElementById("mi1");
+            if(oBoss)  o.blShowObj2Div(oBoss,xdObjBoard);	
+        };
+	}(this);
+    bMoveDiv.onclick = function(this_)
+    { 
+		return function(){
+        	var o = this_.blObj;
+            var main = o.blDiv ( document.body,"moveDivTest","moveDivTest");
+            var style ="position: absolute;";
+			style += "z-index: 9;";
+			style += "background-color: #f1f1f1;";
+			style += "text-align: center;";
+			style += "border: 1px solid #d3d3d3;";
+			style += "left: 400px";
+			style += "top: 140px";
+            main.style =style;
+			var title = o.blDiv(main,"moveDivTestHeader","header");
+			style ="padding: 10px;";
+			style += "z-index: 10;";
+			style += "cursor: move;";
+			style += "text-align: center;";
+			style += "border: 1px solid #fff;";
+			style += "background-color: #2196F3;";
+			title.style =style;
+			var mi0 = o.blDiv(main,"mi0","mi0");
+			var mi1 = o.blDiv(main,"mi1","mi1");
+			var mi2 = o.blDiv(main,"mi2","mi2");
+			var btn1 = o.blBtn(mi2,"Hu_PC","Hu_PC","gray");
+			btn1.onclick = function(){ 
+                 board.computer = 1; 
+				 board.restart(STARTUP_FEN[0]);
+                 this.style.backgroundColor="#f1a";
+                 btn4.style.backgroundColor="green";
+                 btn2.style.backgroundColor="green";
+                 btn3.style.backgroundColor="green";
+  				 ml.options.length = 1;
+                 ml.selectedIndex = 0;
+			}
+			var btn2 = o.blBtn(mi2,"PC_Hu","PC_Hu","gray");
+			btn2.onclick = function(){  
+                 board.computer = 0; 
+				 board.restart(STARTUP_FEN[0]);
+                 this.style.backgroundColor="#f1a";
+                 btn1.style.backgroundColor="green";
+                 btn4.style.backgroundColor="green";
+                 btn3.style.backgroundColor="green";
+  				 ml.options.length = 1;
+                 ml.selectedIndex = 0;
+			}
+			var btn3 = o.blBtn(mi2,"Hr_Hb","Hr_Hb","gray");
+			btn3.onclick = function(){   
+                 board.computer = -1; 
+				 board.restart(STARTUP_FEN[0]);
+                 this.style.backgroundColor="#f1a";
+                 btn1.style.backgroundColor="green";
+                 btn2.style.backgroundColor="green";
+                 btn4.style.backgroundColor="green";
+  				 ml.options.length = 1;
+                 ml.selectedIndex = 0;
+			}
+    		o.blMakeDivMovable(main);
+    
+			var btn4 = o.blBtn(mi2,"Hb_Hr","Hb_Hr","gray");
+			btn4.onclick = function(){   
+                 board.computer = -2; 
+				 board.restart(STARTUP_FEN[0]);
+                 this.style.backgroundColor="#f1a";
+                 btn1.style.backgroundColor="green";
+                 btn2.style.backgroundColor="green";
+                 btn3.style.backgroundColor="green";
+  				 ml.options.length = 1;
+                 ml.selectedIndex = 0;
+
+			}
+    		o.blMakeDivMovable(main);
+            var myMoveList = o.blSelect(mi0,"ml",10);
+    
+        };
+    }(this);
+    
+ 	BOARD_WIDTH 	= BOARD_WIDTH/2;
+ 	BOARD_HEIGHT 	= BOARD_HEIGHT/2;
+ 	SQUARE_SIZE	= SQUARE_SIZE/2;
+    THINKING_LEFT = (BOARD_WIDTH - THINKING_SIZE) >> 1;
+ THINKING_TOP = (BOARD_HEIGHT - THINKING_SIZE) >> 1;
+
+	var d = this.blObj.blDiv ( this,"xddbgDiv","xddbgDiv");
+	d.v	= "xd1_v0.3.7"; 
+    var myBoard = this.blObj.blDiv(this,"container","");
+	var divML = this.blObj.blDiv ( this,"divML","divML");
+    
+} 
+xm.run("v1.0.1");
+//*/
+ //*
+var xdObjBoard 	= new Board(container, "https://littleflute.github.io/cchess0/cchess/images/", "https://littleflute.github.io/cchess0/cchess/sounds/");
+var board = xdObjBoard;
+
+board.setSearch(16);
+board.millis = 1000;
+board.computer = -1;
+
+
+board.onAddMove = function() {
+  var counter = (board.pos.mvList.length >> 1);
+  var space = (counter > 99 ? "    " : "   ");
+  counter = (counter > 9 ? "" : " ") + counter + ".";
+  var text = (board.pos.sdPlayer == 0 ? space : counter) + move2Iccs(board.mvLast);
+  var value = "" + board.mvLast; 
+  var mlSel	= document.getElementById("ml");
+  if(!mlSel) return;
+  var createOption = function (text, value, ie8) {
+    var opt = document.createElement("option");
+    opt.selected = true;
+    opt.value = value;
+    if (ie8) {
+      opt.text = text;
+    } else {
+      opt.innerHTML = text.replace(/ /g, "&nbsp;");
+    }
+    return opt;
+  }
+
+  try {
+    ml.add(createOption(text, value, false));
+  } catch (e) {
+    ml.add(createOption(text, value, true));
+  }
+  ml.scrollTop = ml.scrollHeight;
+
+};
+board.drawSquare = function(sq, selected) {
+  var img = this.imgSquares[this.flipped(sq)];
+  img.src = this.images + PIECE_NAME[this.pos.squares[sq]] + ".gif";
+  img.style.backgroundImage = selected ? "url(" + this.images + "oos29.png)" : "";
+}
+
+board.flipped = function(sq) {
+  return (this.computer == -2 ||this.computer == 0 )? SQUARE_FLIP(sq) : sq; 
+}
+
+//  */
+ 
+var c		= document.getElementById("container"); 
+c.style.background = "url('https://littleflute.github.io/cchess0/cchess/images/board1_2.jpg')";
+
+ 
+    --></script>
+  </body>
+</html>
+ub.io/cchess0/cchess/position.js"></script>
     <script type="text/javascript" src="https://littleflute.github.io/cchess0/cchess/search.js"></script>
     <script type="text/javascript" src="https://littleflute.github.io/cchess0/cchess/board.js"></script>
     <script type="text/javascript" src="https://littleflute.github.io/cchess0/cchess/cchess.js"></script>
