@@ -1,8 +1,4 @@
 
-
-
-
-
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -55,6 +51,23 @@ function blClass()
     }
     return r;
   }
+  this.blSelect = function (oBoss,id,size) {
+    var r = document.getElementById(id);
+    if(!r){
+      r = document.createElement("SELECT");
+      r.setAttribute("id", id);
+      r.setAttribute("size",size);
+      if(oBoss!=null) oBoss.appendChild(r);
+    }
+    var z = document.createElement("option");
+    z.setAttribute("value", 0);
+    var t = document.createTextNode("=== start ===");
+    z.appendChild(t);
+    r.appendChild(z);
+    r.selectedIndex = 0;
+    return r;
+  }
+  
   this.blImg = function (oBoss,id,src){
     var r = document.getElementById(id);
     if(!r){
@@ -248,11 +261,10 @@ xm.run		= function(v){
 	var d = this.blObj.blDiv ( this,"xddbgDiv","xddbgDiv");
 	d.v	= "xd1_v0.3.7"; 
     var myBoard = this.blObj.blDiv(this,"container","");
-	var divShowObj = this.blObj.blDiv ( this,"divShowObj","divShowObj");
-	var img1 = this.blObj.blImg ( document.body,"img1","https://littleflute.github.io/cchess0/cchess/images/oos.gif");
-    img1.style.width = "26px";
+	var divML = this.blObj.blDiv ( this,"divML","divML");
+    var myMoveList = this.blObj.blSelect(divML,"ml",10);
 } 
-xm.run("v0.9.1");
+xm.run("v0.9.5");
 //*/
  //*
 var xdObjBoard 	= new Board(container, "https://littleflute.github.io/cchess0/cchess/images/", "https://littleflute.github.io/cchess0/cchess/sounds/");
@@ -269,6 +281,26 @@ board.onAddMove = function() {
   counter = (counter > 9 ? "" : " ") + counter + ".";
   var text = (board.pos.sdPlayer == 0 ? space : counter) + move2Iccs(board.mvLast);
   var value = "" + board.mvLast; 
+  
+  var createOption = function (text, value, ie8) {
+    var opt = document.createElement("option");
+    opt.selected = true;
+    opt.value = value;
+    if (ie8) {
+      opt.text = text;
+    } else {
+      opt.innerHTML = text.replace(/ /g, "&nbsp;");
+    }
+    return opt;
+  }
+
+  try {
+    ml.add(createOption(text, value, false));
+  } catch (e) {
+    ml.add(createOption(text, value, true));
+  }
+  ml.scrollTop = ml.scrollHeight;
+
 };
 board.drawSquare = function(sq, selected) {
   var img = this.imgSquares[this.flipped(sq)];
