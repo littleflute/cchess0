@@ -29,13 +29,13 @@ var STARTUP_FEN = [
  
 function blClass()
 {
-  this.blBtn = function(oBoss,id,html){
+  this.blBtn = function(oBoss,id,html,clr){
     var r = document.getElementById(id);
     if(!r){
         r = document.createElement("button");
         r.id = id;
     	r.innerHTML = html; 
-        r.style.backgroundColor="green";
+        r.style.backgroundColor=clr?clr:"green";
     	if(oBoss!=null)oBoss.appendChild(r);
     }
     return r;
@@ -196,17 +196,43 @@ xm.run		= function(v){
 			title.style =style;
 			var mi1 = o.blDiv(main,"mi1","mi1");
 			var mi2 = o.blDiv(main,"mi2","mi2");
-			var btn1 = o.blBtn(mi2,"Hu_PC","Hu_PC","#f12");
+			var btn1 = o.blBtn(mi2,"Hu_PC","Hu_PC","gray");
 			btn1.onclick = function(){ 
                  board.computer = 1; 
-				board.restart(STARTUP_FEN[0]);
+				 board.restart(STARTUP_FEN[0]);
+                 this.style.backgroundColor="#f1a";
+                 btn4.style.backgroundColor="green";
+                 btn2.style.backgroundColor="green";
+                 btn3.style.backgroundColor="green";
 			}
-			var btn2 = o.blBtn(mi2,"PC_Hu","PC_Hu","#f1a");
-			btn2.onclick = function(){ 
-    			 //var i = xdObjBoard.imgSquares[200];
-               //  i.onmousedown();  
+			var btn2 = o.blBtn(mi2,"PC_Hu","PC_Hu","gray");
+			btn2.onclick = function(){  
                  board.computer = 0; 
-				board.restart(STARTUP_FEN[0]);
+				 board.restart(STARTUP_FEN[0]);
+                 this.style.backgroundColor="#f1a";
+                 btn1.style.backgroundColor="green";
+                 btn4.style.backgroundColor="green";
+                 btn3.style.backgroundColor="green";
+			}
+			var btn3 = o.blBtn(mi2,"Hr_Hb","Hr_Hb","gray");
+			btn3.onclick = function(){   
+                 board.computer = -1; 
+				 board.restart(STARTUP_FEN[0]);
+                 this.style.backgroundColor="#f1a";
+                 btn1.style.backgroundColor="green";
+                 btn2.style.backgroundColor="green";
+                 btn4.style.backgroundColor="green";
+			}
+    		o.blMakeDivMovable(main);
+    
+			var btn4 = o.blBtn(mi2,"Hb_Hr","Hb_Hr","gray");
+			btn4.onclick = function(){   
+                 board.computer = -2; 
+				 board.restart(STARTUP_FEN[0]);
+                 this.style.backgroundColor="#f1a";
+                 btn1.style.backgroundColor="green";
+                 btn2.style.backgroundColor="green";
+                 btn3.style.backgroundColor="green";
 			}
     		o.blMakeDivMovable(main);
     
@@ -226,7 +252,7 @@ xm.run		= function(v){
 	var img1 = this.blObj.blImg ( document.body,"img1","https://littleflute.github.io/cchess0/cchess/images/oos.gif");
     img1.style.width = "26px";
 } 
-xm.run("v0.8.2");
+xm.run("v0.8.8");
 //*/
  //*
 var xdObjBoard 	= new Board(container, "https://littleflute.github.io/cchess0/cchess/images/", "https://littleflute.github.io/cchess0/cchess/sounds/");
