@@ -2,6 +2,7 @@
 
 
 
+
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -195,12 +196,12 @@ xm.run		= function(v){
 			title.style =style;
 			var mi1 = o.blDiv(main,"mi1","mi1");
 			var mi2 = o.blDiv(main,"mi2","mi2");
-			var btn1 = o.blBtn(mi2,"btn1","btn1","#f12");
+			var btn1 = o.blBtn(mi2,"Hu_PC","Hu_PC","#f12");
 			btn1.onclick = function(){ 
                  board.computer = 1; 
 				board.restart(STARTUP_FEN[0]);
 			}
-			var btn2 = o.blBtn(mi2,"btn2","btn2","#f12");
+			var btn2 = o.blBtn(mi2,"PC_Hu","PC_Hu","#f1a");
 			btn2.onclick = function(){ 
     			 //var i = xdObjBoard.imgSquares[200];
                //  i.onmousedown();  
@@ -225,7 +226,7 @@ xm.run		= function(v){
 	var img1 = this.blObj.blImg ( document.body,"img1","https://littleflute.github.io/cchess0/cchess/images/oos.gif");
     img1.style.width = "26px";
 } 
-xm.run("v0.8.1");
+xm.run("v0.8.2");
 //*/
  //*
 var xdObjBoard 	= new Board(container, "https://littleflute.github.io/cchess0/cchess/images/", "https://littleflute.github.io/cchess0/cchess/sounds/");
