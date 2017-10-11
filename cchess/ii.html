@@ -252,7 +252,7 @@ xm.run		= function(v){
 	var img1 = this.blObj.blImg ( document.body,"img1","https://littleflute.github.io/cchess0/cchess/images/oos.gif");
     img1.style.width = "26px";
 } 
-xm.run("v0.8.8");
+xm.run("v0.9.1");
 //*/
  //*
 var xdObjBoard 	= new Board(container, "https://littleflute.github.io/cchess0/cchess/images/", "https://littleflute.github.io/cchess0/cchess/sounds/");
@@ -274,6 +274,10 @@ board.drawSquare = function(sq, selected) {
   var img = this.imgSquares[this.flipped(sq)];
   img.src = this.images + PIECE_NAME[this.pos.squares[sq]] + ".gif";
   img.style.backgroundImage = selected ? "url(" + this.images + "oos29.png)" : "";
+}
+
+board.flipped = function(sq) {
+  return (this.computer == -2 ||this.computer == 0 )? SQUARE_FLIP(sq) : sq; 
 }
 
 //  */
