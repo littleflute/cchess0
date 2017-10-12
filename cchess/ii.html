@@ -238,10 +238,11 @@ xm.run		= function(v){
                     if(c=='i') return 8;
                 }
                 var x = [195,179,163,147];
-    			var go = function(c1,c2,c3,c4){  
-        			var r = 0;
-        			r = x[c2]+getY(c1); 
-            		board.imgSquares[r].onmousedown(); 
+    			var go = function(c1,c2,c3,c4){ 
+        			var g1 = x[c2]+getY(c1); 
+        			var g2 = x[c4]+getY(c3); 
+            		board.imgSquares[g1].onmousedown(); 
+            		board.imgSquares[g2].onmousedown(); 
     			} 
                 go(s[0],s[1],s[2],s[3]);                  
 			}
@@ -311,7 +312,7 @@ xm.run		= function(v){
     var myBoard = this.blObj.blDiv(this,"container",""); 
     
 } 
-xm.run("v1.0.6");
+xm.run("v1.0.7");
 //*/
  //*
 var xdObjBoard 	= new Board(container, "https://littleflute.github.io/cchess0/cchess/images/", "https://littleflute.github.io/cchess0/cchess/sounds/");
