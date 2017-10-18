@@ -225,6 +225,7 @@ xm.run		= function(v){
 			title.style =style;
 			var mi0 = o.blDiv(main,"mi0","mi0");
 			var ClickMsg = o.blDiv(mi0,"ClickMsg","ClickMsg");
+			var goMsg = o.blDiv(mi0,"goMsg","goMsg");
             var goText = o.blTextField(mi0,"goText","A1");
 			var btnGo = o.blBtn(mi0,"btnGo","Go","green");
 			btnGo.onclick = function(){  
@@ -245,6 +246,8 @@ xm.run		= function(v){
     			var go = function(c1,c2,c3,c4){ 
         			var g1 = x[c2]+getY(c1); 
         			var g2 = x[c4]+getY(c3); 
+                    var g1 = board.flipped(g1);
+                    var g2 = board.flipped(g2); 
             		board.imgSquares[g1].onmousedown(); 
             		board.imgSquares[g2].onmousedown(); 
     			} 
@@ -316,7 +319,7 @@ xm.run		= function(v){
     var myBoard = this.blObj.blDiv(this,"container",""); 
     
 } 
-xm.run("v1.0.9");
+xm.run("v1.1.0");
 //*/
  //*
 var xdObjBoard 	= new Board(container, "https://littleflute.github.io/cchess0/cchess/images/", "https://littleflute.github.io/cchess0/cchess/sounds/");
