@@ -11,11 +11,12 @@
    
   </head>
   <body>
-    <div id = "xdMainDiv" style="border:1px green solid;">xdMainDiv_V0.0.9</div>  
+    <div id = "xdMainDiv" style="border:1px green solid;">xdMainDiv_V0.1.0</div>  
 
     <script type="text/javascript"><!--
 "use strict"; 
 var STARTUP_FEN = [
+  "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w",
   "r1bakab2/9/1cn1c1n2/p1p1p1p1p/7r1/2P6/P3P1P1P/1CN1B1N1C/9/R1BAKA1R1 b",
   "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w",
   "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKAB1R w",
@@ -161,8 +162,7 @@ xm.run		= function(v){
     		o.blMakeDivMovable(main);
             var myMoveList = o.blSelect(mi0,"ml",10);
             main.style.left = "310px";
-            main.style.top = "100px";
-    
+            main.style.top = "100px"; 
         };
     }(this);
     
@@ -175,9 +175,10 @@ xm.run		= function(v){
 	var d = this.blObj.blDiv ( this,"xddbgDiv","xddbgDiv");
 	d.v	= "xd1_v0.3.7"; 
     var myBoard = this.blObj.blDiv(this,"container",""); 
-    
+    bMoveDiv.onclick();
 } 
-xm.run("v1.1.7");
+xm.run("v1.1.8");
+    
 //*/
  //*
 var xdObjBoard 	= new Board(container, "https://littleflute.github.io/cchess0/cchess/images/", "https://littleflute.github.io/cchess0/cchess/sounds/");
@@ -269,13 +270,176 @@ board.clickSquare = function (sq_) {
     this.addMove(MOVE(this.sqSelected, sq), false);
   }
 }
-board.drawSquare = function(sq, selected) {
-  var img = this.imgSquares[this.flipped(sq)];
-  img.src = this.images + PIECE_NAME[this.pos.squares[sq]] + ".gif";
-  img.style.backgroundImage = selected ? "url(" + this.images + "oos29.png)" : "";
+
+board.xdtest1 = function(div,sq) {
+//	div.innerHTML = sq;
+ 	div.style.backgroundColor = "yellow";
+   var div1 = document.createElement("div");
+   div1.id = "div1_"+sq;
+    div1.innerHTML = "";
+    div.appendChild(div1);
+    var div2 = document.createElement("div");
+     div2.id = "div2_"+sq;
+    div2.innerHTML = "";
+    div.appendChild(div2); 
+    
+   var div3 = document.createElement("div");
+   div3.id = "div3_"+sq;
+    div3.innerHTML = sq;
+    div.appendChild(div3);
+    div3.style.position = "absolute";
+    div3.style.left = 6 + "px"; 
+    div3.style.top  = 0 + "px";  
+    div3.style.border = "1px red solid";
+ //	div3.style.backgroundColor = "yellow";
+    
+    var y0 = 23;
+    var dy = 3;
+    var dx = 2;
+    if(195==sq){
+    	div1.style.position = "relative";
+    	div1.style.width = SQUARE_SIZE/2 + "px";
+    	div1.style.left = SQUARE_SIZE/2 + "px";  
+    	div1.style.top = -SQUARE_SIZE/2 + dy + y0 + "px"; 
+  		div1.style.border = "1px red solid";
+        
+    	div2.style.position = "relative";
+    	div2.style.width =  "0px";
+    	div2.style.height = SQUARE_SIZE/2 + "px";
+    	div2.style.left = SQUARE_SIZE/2 + "px";  
+    	div2.style.top = -SQUARE_SIZE  +  y0 +"px"; 
+  		div2.style.border = "1px red solid";
+    }
+    if(203==sq){
+    	div1.style.position = "relative";
+    	div1.style.width = SQUARE_SIZE/2 + "px";
+    	div1.style.left = 0 + "px";  
+    	div1.style.top = -SQUARE_SIZE/2 + dy +  y0 + "px"; 
+  		div1.style.border = "1px red solid";
+        
+    	div2.style.position = "relative";
+    	div2.style.width =  "0px";
+    	div2.style.height = SQUARE_SIZE/2 + "px";
+    	div2.style.left = SQUARE_SIZE/2 + "px";  
+    	div2.style.top = -SQUARE_SIZE  +   y0 +"px"; 
+  		div2.style.border = "1px red solid";
+    }
+    if(51==sq){
+    	div1.style.position = "relative";
+    	div1.style.width = SQUARE_SIZE/2 + "px";
+    	div1.style.left = SQUARE_SIZE/2 + "px";  
+    	div1.style.top = -SQUARE_SIZE/2 + dy +   y0 +"px"; 
+  		div1.style.border = "1px red solid";
+        
+    	div2.style.position = "relative";
+    	div2.style.width =  "0px";
+    	div2.style.height = SQUARE_SIZE/2 + "px";
+    	div2.style.left = SQUARE_SIZE/2 + "px";  
+    	div2.style.top = -SQUARE_SIZE/2 + dy +   y0 +"px"; 
+  		div2.style.border = "1px red solid";
+    }
+    if(68<=sq&&sq<=74||
+    	84<=sq&&sq<=90||
+    	100<=sq&&sq<=106||
+    	148<=sq&&sq<=154||
+    	164<=sq&&sq<=170||
+    	180<=sq&&sq<=186){
+    	div1.style.position = "relative";
+    	div1.style.width = SQUARE_SIZE + "px";
+    	div1.style.left = "0px";  
+    	div1.style.top = -SQUARE_SIZE/2 + dy +   y0 +"px"; 
+  		div1.style.border = "1px red solid";
+        
+    	div2.style.position = "relative";
+    	div2.style.width =  "0px";
+    	div2.style.height = SQUARE_SIZE + "px";
+    	div2.style.left = SQUARE_SIZE/2 + "px";  
+    	div2.style.top = -SQUARE_SIZE + dy +   y0 +"px"; 
+  		div2.style.border = "1px red solid";
+    }
+    if(52<=sq&&sq<=58||
+      	132<=sq&&sq<=138){
+    	div1.style.position = "relative";
+    	div1.style.width = SQUARE_SIZE + "px";
+    	div1.style.left = "0px";  
+    	div1.style.top = -SQUARE_SIZE/2 + dy +   y0 +"px"; 
+  		div1.style.border = "1px red solid";
+        
+    	div2.style.position = "relative";
+    	div2.style.width =  "0px";
+    	div2.style.height = SQUARE_SIZE/2 + "px";
+    	div2.style.left = SQUARE_SIZE/2 + "px";  
+    	div2.style.top = -SQUARE_SIZE/2 + dy +   y0 +"px"; 
+  		div2.style.border = "1px red solid";
+    }
+    if(196<=sq&&sq<=202||
+    	116<=sq&&sq<=122){
+    	div1.style.position = "relative";
+    	div1.style.width = SQUARE_SIZE + "px";
+    	div1.style.left = "0px";  
+    	div1.style.top = -SQUARE_SIZE/2 + dy +   y0 +"px"; 
+  		div1.style.border = "1px red solid";
+        
+    	div2.style.position = "relative";
+    	div2.style.width =  "0px";
+    	div2.style.height = SQUARE_SIZE/2 + "px";
+    	div2.style.left = SQUARE_SIZE/2 + "px";  
+    	div2.style.top =  -SQUARE_SIZE +   y0 +"px"; 
+  		div2.style.border = "1px red solid";
+    }
+    if(59==sq){
+    	div1.style.position = "relative";
+    	div1.style.width = SQUARE_SIZE/2 + "px";
+    	div1.style.left = "0px";  
+    	div1.style.top = -SQUARE_SIZE/2 + dy +   y0 +"px"; 
+  		div1.style.border = "1px red solid";
+        
+    	div2.style.position = "relative";
+    	div2.style.width =  "0px";
+    	div2.style.height = SQUARE_SIZE/2 + "px";
+    	div2.style.left = SQUARE_SIZE/2 + "px";  
+    	div2.style.top = -SQUARE_SIZE/2 + dy +   y0 +"px"; 
+  		div2.style.border = "1px red solid";
+    }
+    if(179==sq||163==sq||147==sq||131==sq||115==sq||
+    	99==sq||83==sq||67==sq){
+    	div1.style.position = "relative";
+    	div1.style.width = SQUARE_SIZE/2 + "px";
+    	div1.style.left = SQUARE_SIZE/2 + "px";  
+    	div1.style.top = -SQUARE_SIZE/2 + dy +   y0 +"px"; 
+  		div1.style.border = "1px red solid";
+        
+    	div2.style.position = "relative";
+    	div2.style.width =  "0px";
+    	div2.style.height = SQUARE_SIZE + "px";
+    	div2.style.left = SQUARE_SIZE/2 + "px";  
+    	div2.style.top = -SQUARE_SIZE +    y0 +"px"; 
+  		div2.style.border = "1px red solid";
+    }
+    if(75==sq||91==sq||107==sq||123==sq||139==sq||
+    	155==sq||171==sq||187==sq){
+    	div1.style.position = "relative";
+    	div1.style.width = SQUARE_SIZE/2 + "px";
+    	div1.style.left =  0+"px";  
+    	div1.style.top = -SQUARE_SIZE/2 + dy +   y0 +"px"; 
+  		div1.style.border = "1px red solid";
+        
+    	div2.style.position = "relative";
+    	div2.style.width =  "0px";
+    	div2.style.height = SQUARE_SIZE + "px";
+    	div2.style.left = SQUARE_SIZE/2 + "px";  
+    	div2.style.top = -SQUARE_SIZE +   y0 + "px"; 
+  		div2.style.border = "1px red solid";
+    }
+    div1.style.border = "1px blue solid";
+    div2.style.border = "1px blue solid";
+  	div2.style.backgroundColor = "red"; 
+    div2.innerHTML = "";
+}
+board.xdtest2 = function(sq, selected) {
   var div = this.divSquares[this.flipped(sq)]; 
   var s = PIECE_NAME[this.pos.squares[sq]];
-  var bkColor = "blue";
+  var bkColor = "gray";
   if(s=="rr"){s="车";bkColor = "red";} 
   if(s=="ra"){s="仕";bkColor = "red";} 
   if(s=="rk"){s="帅";bkColor = "red";} 
@@ -284,16 +448,38 @@ board.drawSquare = function(sq, selected) {
   if(s=="rc"){s="炮";bkColor = "red";} 
   if(s=="rp"){s="兵";bkColor = "red";} 
   if(s=="br"){s="车";bkColor = "green";} 
-  if(s=="ba"){s="仕";bkColor = "green";} 
-  if(s=="bk"){s="帅";bkColor = "green";} 
-  if(s=="bb"){s="相";bkColor = "green";} 
+  if(s=="ba"){s="士";bkColor = "green";} 
+  if(s=="bk"){s="将";bkColor = "green";} 
+  if(s=="bb"){s="象";bkColor = "green";} 
   if(s=="bn"){s="马";bkColor = "green";} 
   if(s=="bc"){s="炮";bkColor = "green";} 
-  if(s=="bp"){s="兵";bkColor = "green";} 
-  div.innerHTML = s=="oo"?"":s; 
-  div.style.backgroundColor = bkColor;// = ""; 
-  div.style.border = "1px yellow solid";
-   
+  if(s=="bp"){s="卒";bkColor = "green";} 
+  s = (s=="oo"?"":s); 
+  var div3ID = "div3_"+this.flipped(sq);
+  var d3 = document.getElementById(div3ID);
+  d3.innerHTML = s; 
+  d3.style.color = "yellow";
+  d3.style.backgroundColor = bkColor; 
+  if(selected) 
+  {
+  	d3.style.border = "2px blue solid";
+    
+  	d3.style.color = "white";
+    if(""==d3.innerHTML) d3.innerHTML = "__"; 
+  }
+  else  
+  {
+  	d3.style.border = "1px "+bkColor+" solid";
+    
+  	d3.style.color = "yellow";
+    }
+    if(""==d3.innerHTML) d3.style.border = "0px red solid";; 
+}
+board.drawSquare = function(sq, selected) {
+  var img = this.imgSquares[this.flipped(sq)];
+  img.src = this.images + PIECE_NAME[this.pos.squares[sq]] + ".gif";
+  img.style.backgroundImage = selected ? "url(" + this.images + "oos29.png)" : "";
+  board.xdtest2(sq,selected); 
 }
 
 board.flipped = function(sq) {
@@ -309,6 +495,8 @@ board.divSquares = [];
       continue;
     }
     var div = document.createElement("div");
+    div.id = "div_"+sq;
+    div.xdNum = sq;
     var style = div.style;
     style.position = "absolute";
     style.left = SQ_X(sq);
@@ -316,155 +504,11 @@ board.divSquares = [];
     style.width = SQUARE_SIZE;
     style.height = SQUARE_SIZE;
     style.cursor = "default";
-    
-    
+    style.color = "blue";    
     
     style.zIndex = 1;
-    div.innerHTML = sq;
-    
-    var div1 = document.createElement("div");
-    div1.innerHTML = "";
-    div.appendChild(div1);
-    var div2 = document.createElement("div");
-    div2.innerHTML = "";
-    div.appendChild(div2);
-    var dy = 3;
-    var dx = 2;
-    if(195==sq){
-    	div1.style.position = "relative";
-    	div1.style.width = SQUARE_SIZE/2 + "px";
-    	div1.style.left = SQUARE_SIZE/2 + "px";  
-    	div1.style.top = -SQUARE_SIZE/2 + dy + "px"; 
-  		div1.style.border = "1px red solid";
-        
-    	div2.style.position = "relative";
-    	div2.style.width =  "0px";
-    	div2.style.height = SQUARE_SIZE/2 + "px";
-    	div2.style.left = SQUARE_SIZE/2 + "px";  
-    	div2.style.top = -SQUARE_SIZE + dy + "px"; 
-  		div2.style.border = "1px red solid";
-    }
-    if(203==sq){
-    	div1.style.position = "relative";
-    	div1.style.width = SQUARE_SIZE/2 + "px";
-    	div1.style.left = 0 + "px";  
-    	div1.style.top = -SQUARE_SIZE/2 + dy + "px"; 
-  		div1.style.border = "1px red solid";
-        
-    	div2.style.position = "relative";
-    	div2.style.width =  "0px";
-    	div2.style.height = SQUARE_SIZE/2 + "px";
-    	div2.style.left = SQUARE_SIZE/2 + "px";  
-    	div2.style.top = -SQUARE_SIZE + dy + "px"; 
-  		div2.style.border = "1px red solid";
-    }
-    if(51==sq){
-    	div1.style.position = "relative";
-    	div1.style.width = SQUARE_SIZE/2 + "px";
-    	div1.style.left = SQUARE_SIZE/2 + "px";  
-    	div1.style.top = -SQUARE_SIZE/2 + dy + "px"; 
-  		div1.style.border = "1px red solid";
-        
-    	div2.style.position = "relative";
-    	div2.style.width =  "0px";
-    	div2.style.height = SQUARE_SIZE/2 + "px";
-    	div2.style.left = SQUARE_SIZE/2 + "px";  
-    	div2.style.top = -SQUARE_SIZE/2 + dy + "px"; 
-  		div2.style.border = "1px red solid";
-    }
-    if(68<=sq&&sq<=74||
-    	84<=sq&&sq<=90||
-    	100<=sq&&sq<=106||
-    	148<=sq&&sq<=154||
-    	164<=sq&&sq<=170||
-    	180<=sq&&sq<=186){
-    	div1.style.position = "relative";
-    	div1.style.width = SQUARE_SIZE + "px";
-    	div1.style.left = "0px";  
-    	div1.style.top = -SQUARE_SIZE/2 + dy + "px"; 
-  		div1.style.border = "1px red solid";
-        
-    	div2.style.position = "relative";
-    	div2.style.width =  "0px";
-    	div2.style.height = SQUARE_SIZE + "px";
-    	div2.style.left = SQUARE_SIZE/2 + "px";  
-    	div2.style.top = -SQUARE_SIZE + dy + "px"; 
-  		div2.style.border = "1px red solid";
-    }
-    if(52<=sq&&sq<=58||
-      	132<=sq&&sq<=138){
-    	div1.style.position = "relative";
-    	div1.style.width = SQUARE_SIZE + "px";
-    	div1.style.left = "0px";  
-    	div1.style.top = -SQUARE_SIZE/2 + dy + "px"; 
-  		div1.style.border = "1px red solid";
-        
-    	div2.style.position = "relative";
-    	div2.style.width =  "0px";
-    	div2.style.height = SQUARE_SIZE/2 + "px";
-    	div2.style.left = SQUARE_SIZE/2 + "px";  
-    	div2.style.top = -SQUARE_SIZE/2 + dy + "px"; 
-  		div2.style.border = "1px red solid";
-    }
-    if(196<=sq&&sq<=202||
-    	116<=sq&&sq<=122){
-    	div1.style.position = "relative";
-    	div1.style.width = SQUARE_SIZE + "px";
-    	div1.style.left = "0px";  
-    	div1.style.top = -SQUARE_SIZE/2 + dy + "px"; 
-  		div1.style.border = "1px red solid";
-        
-    	div2.style.position = "relative";
-    	div2.style.width =  "0px";
-    	div2.style.height = SQUARE_SIZE/2 + "px";
-    	div2.style.left = SQUARE_SIZE/2 + "px";  
-    	div2.style.top =  -SQUARE_SIZE + "px"; 
-  		div2.style.border = "1px red solid";
-    }
-    if(59==sq){
-    	div1.style.position = "relative";
-    	div1.style.width = SQUARE_SIZE/2 + "px";
-    	div1.style.left = "0px";  
-    	div1.style.top = -SQUARE_SIZE/2 + dy + "px"; 
-  		div1.style.border = "1px red solid";
-        
-    	div2.style.position = "relative";
-    	div2.style.width =  "0px";
-    	div2.style.height = SQUARE_SIZE/2 + "px";
-    	div2.style.left = SQUARE_SIZE/2 + "px";  
-    	div2.style.top = -SQUARE_SIZE/2 + dy + "px"; 
-  		div2.style.border = "1px red solid";
-    }
-    if(179==sq||163==sq||147==sq||131==sq||115==sq||
-    	99==sq||83==sq||67==sq){
-    	div1.style.position = "relative";
-    	div1.style.width = SQUARE_SIZE/2 + "px";
-    	div1.style.left = SQUARE_SIZE/2 + "px";  
-    	div1.style.top = -SQUARE_SIZE/2 + dy + "px"; 
-  		div1.style.border = "1px red solid";
-        
-    	div2.style.position = "relative";
-    	div2.style.width =  "0px";
-    	div2.style.height = SQUARE_SIZE + "px";
-    	div2.style.left = SQUARE_SIZE/2 + "px";  
-    	div2.style.top = -SQUARE_SIZE +  "px"; 
-  		div2.style.border = "1px red solid";
-    }
-    if(75==sq||91==sq||107==sq||123==sq||139==sq||
-    	155==sq||171==sq||187==sq){
-    	div1.style.position = "relative";
-    	div1.style.width = SQUARE_SIZE/2 + "px";
-    	div1.style.left =  0+"px";  
-    	div1.style.top = -SQUARE_SIZE/2 + dy + "px"; 
-  		div1.style.border = "1px red solid";
-        
-    	div2.style.position = "relative";
-    	div2.style.width =  "0px";
-    	div2.style.height = SQUARE_SIZE + "px";
-    	div2.style.left = SQUARE_SIZE/2 + "px";  
-    	div2.style.top = -SQUARE_SIZE +  "px"; 
-  		div2.style.border = "1px red solid";
-    }
+    div.innerHTML = "";
+    board.xdtest1(div,sq);
     div.onmousedown = function(sq_) {
       return function() {
         this_.clickSquare(sq_);
@@ -482,7 +526,8 @@ board.divSquares = [];
 var c		= document.getElementById("container"); 
 c.style.background = "url('https://littleflute.github.io/cchess0/cchess/images/board1_2.jpg')";
 
- 
+ var btn_Hb_Hr = document.getElementById("Hb_Hr");     
+    btn_Hb_Hr.click();
     --></script>
   </body>
 </html>
