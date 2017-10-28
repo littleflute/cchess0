@@ -1,9 +1,3 @@
-
-
-
-
-
-
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -183,7 +177,7 @@ xm.run		= function(v){
     var myBoard = this.blObj.blDiv(this,"container",""); 
     
 } 
-xm.run("v1.1.5");
+xm.run("v1.1.6");
 //*/
  //*
 var xdObjBoard 	= new Board(container, "https://littleflute.github.io/cchess0/cchess/images/", "https://littleflute.github.io/cchess0/cchess/sounds/");
@@ -281,7 +275,24 @@ board.drawSquare = function(sq, selected) {
   img.style.backgroundImage = selected ? "url(" + this.images + "oos29.png)" : "";
   var div = this.divSquares[this.flipped(sq)]; 
   var s = PIECE_NAME[this.pos.squares[sq]];
+  var bkColor = "blue";
+  if(s=="rr"){s="车";bkColor = "red";} 
+  if(s=="ra"){s="仕";bkColor = "red";} 
+  if(s=="rk"){s="帅";bkColor = "red";} 
+  if(s=="rb"){s="相";bkColor = "red";} 
+  if(s=="rn"){s="马";bkColor = "red";} 
+  if(s=="rc"){s="炮";bkColor = "red";} 
+  if(s=="rp"){s="兵";bkColor = "red";} 
+  if(s=="br"){s="车";bkColor = "green";} 
+  if(s=="ba"){s="仕";bkColor = "green";} 
+  if(s=="bk"){s="帅";bkColor = "green";} 
+  if(s=="bb"){s="相";bkColor = "green";} 
+  if(s=="bn"){s="马";bkColor = "green";} 
+  if(s=="bc"){s="炮";bkColor = "green";} 
+  if(s=="bp"){s="兵";bkColor = "green";} 
   div.innerHTML = s=="oo"?"":s; 
+  div.style.backgroundColor = bkColor;// = ""; 
+  div.style.border = "1px yellow solid";
 }
 
 board.flipped = function(sq) {
