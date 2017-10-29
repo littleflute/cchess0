@@ -177,11 +177,11 @@ xm.run		= function(v){
     var myBoard = this.blObj.blDiv(this,"container",""); 
     bMoveDiv.onclick();
 } 
-xm.run("v1.1.8");
+xm.run("v1.1.9");
     
 //*/
  //*
-var xdObjBoard 	= new Board(container, "https://littleflute.github.io/cchess0/cchess/images/", "https://littleflute.github.io/cchess0/cchess/sounds/");
+var xdObjBoard 	= new Board(container, "", "https://littleflute.github.io/cchess0/cchess/sounds/");
 var board = xdObjBoard;
 
 board.setSearch(16);
@@ -290,8 +290,7 @@ board.xdtest1 = function(div,sq) {
     div3.style.position = "absolute";
     div3.style.left = 6 + "px"; 
     div3.style.top  = 0 + "px";  
-    div3.style.border = "1px red solid";
- //	div3.style.backgroundColor = "yellow";
+    div3.style.border = "1px red solid"; 
     
     var y0 = 23;
     var dy = 3;
@@ -458,22 +457,24 @@ board.xdtest2 = function(sq, selected) {
   var div3ID = "div3_"+this.flipped(sq);
   var d3 = document.getElementById(div3ID);
   d3.innerHTML = s; 
-  d3.style.color = "yellow";
+  d3.style.color = "black";
   d3.style.backgroundColor = bkColor; 
   if(selected) 
   {
   	d3.style.border = "2px blue solid";
     
-  	d3.style.color = "white";
+  	d3.style.color = "yellow";
     if(""==d3.innerHTML) d3.innerHTML = "__"; 
   }
   else  
-  {
-  	d3.style.border = "1px "+bkColor+" solid";
+  { 
+  	d3.style.border = "2px gray solid";
     
-  	d3.style.color = "yellow";
-    }
-    if(""==d3.innerHTML) d3.style.border = "0px red solid";; 
+  	d3.style.color = "white";
+  }
+  if(""==d3.innerHTML) d3.style.border = "0px red solid";
+  d3.style.borderRadius = "198px 198px 198px 198px";
+    
 }
 board.drawSquare = function(sq, selected) {
   var img = this.imgSquares[this.flipped(sq)];
