@@ -177,7 +177,7 @@ xm.run		= function(v){
     var myBoard = this.blObj.blDiv(this,"container",""); 
     bMoveDiv.onclick();
 } 
-xm.run("v1.1.9");
+xm.run("v1.2.0");
     
 //*/
  //*
@@ -283,18 +283,75 @@ board.xdtest1 = function(div,sq) {
     div2.innerHTML = "";
     div.appendChild(div2); 
     
-   var div3 = document.createElement("div");
-   div3.id = "div3_"+sq;
-    div3.innerHTML = sq;
-    div.appendChild(div3);
-    div3.style.position = "absolute";
-    div3.style.left = 6 + "px"; 
-    div3.style.top  = 0 + "px";  
-    div3.style.border = "1px red solid"; 
     
     var y0 = 23;
     var dy = 3;
     var dx = 2;
+    if(84==sq||90==sq||170==sq||164==sq
+    	||101==sq||103==sq||105==sq
+    	||149==sq||151==sq||153==sq){
+    	var div4 = document.createElement("div");
+   		div4.id = "div4_"+sq;
+    	div4.style.position = "absolute";
+    	div4.style.left = 10 + "px"; 
+    	div4.style.top  = 2 + "px";  
+    	div4.innerHTML = "╬";
+    	div.appendChild(div4);
+    }  
+    if(99==sq||147==sq){
+    	var div4 = document.createElement("div");
+   		div4.id = "div4_"+sq;
+    	div4.style.position = "absolute";
+    	div4.style.left = 12 + "px"; 
+    	div4.style.top  = 2 + "px";  
+    	div4.innerHTML = "］";
+    	div.appendChild(div4);
+    } 
+    if(107==sq||155==sq){
+    	var div4 = document.createElement("div");
+   		div4.id = "div4_"+sq;
+    	div4.style.position = "absolute";
+    	div4.style.left = 4 + "px"; 
+    	div4.style.top  = 2 + "px";  
+    	div4.innerHTML = "［";
+    	div.appendChild(div4);
+    } 
+    if(54==sq||71==sq||166==sq||183==sq){
+    	var div4 = document.createElement("div");
+   		div4.id = "div4_"+sq;
+    	div4.style.position = "absolute";
+    	div4.style.left = 15 + "px"; 
+    	div4.style.top  = 6 + "px";  
+    	div4.innerHTML = " ╲";
+    	div.appendChild(div4);
+    }
+    if(56==sq||71==sq||168==sq||183==sq){
+    	var div4 = document.createElement("div");
+   		div4.id = "div4_"+sq;
+    	div4.style.position = "absolute";
+    	div4.style.left = 7 + "px"; 
+    	div4.style.top  = 6 + "px";  
+    	div4.innerHTML = " ╱";
+    	div.appendChild(div4);
+    }
+    if(86==sq||71==sq||183==sq||198==sq){
+    	var div4 = document.createElement("div");
+   		div4.id = "div4_"+sq;
+    	div4.style.position = "absolute";
+    	div4.style.left = 16 + "px"; 
+    	div4.style.top  = -6 + "px";  
+    	div4.innerHTML = " ╱";
+    	div.appendChild(div4);
+    }
+    if(71==sq||88==sq||183==sq||200==sq){
+    	var div4 = document.createElement("div");
+   		div4.id = "div4_"+sq;
+    	div4.style.position = "absolute";
+    	div4.style.left = 2 + "px"; 
+    	div4.style.top  = -9 + "px";  
+    	div4.innerHTML = " ╲";
+    	div.appendChild(div4);
+    } 
     if(195==sq){
     	div1.style.position = "relative";
     	div1.style.width = SQUARE_SIZE/2 + "px";
@@ -434,6 +491,14 @@ board.xdtest1 = function(div,sq) {
     div2.style.border = "1px blue solid";
   	div2.style.backgroundColor = "red"; 
     div2.innerHTML = "";
+   	var div3 = document.createElement("div");
+   	div3.id = "div3_"+sq;
+    div3.innerHTML = sq;
+    div.appendChild(div3);
+    div3.style.position = "absolute";
+    div3.style.left = 6 + "px"; 
+    div3.style.top  = 0 + "px";  
+    div3.style.border = "1px red solid"; 
 }
 board.xdtest2 = function(sq, selected) {
   var div = this.divSquares[this.flipped(sq)]; 
@@ -464,7 +529,7 @@ board.xdtest2 = function(sq, selected) {
   	d3.style.border = "2px blue solid";
     
   	d3.style.color = "yellow";
-    if(""==d3.innerHTML) d3.innerHTML = "__"; 
+    if(""==d3.innerHTML) d3.innerHTML = "☆"; 
   }
   else  
   { 
@@ -528,7 +593,7 @@ var c		= document.getElementById("container");
 c.style.background = "url('https://littleflute.github.io/cchess0/cchess/images/board1_2.jpg')";
 
  var btn_Hb_Hr = document.getElementById("Hb_Hr");     
-    btn_Hb_Hr.click();
+ btn_Hb_Hr.click();
     --></script>
   </body>
 </html>
