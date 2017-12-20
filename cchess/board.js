@@ -21,7 +21,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 "use strict";
-var v_board_js 		= "board.js:v0.0.4";
+var v_board_js 		= "board.js:v0.0.5";
 var RESULT_UNKNOWN = 0;
 var RESULT_WIN = 1;
 var RESULT_DRAW = 2;
@@ -121,9 +121,6 @@ function Board(container, images, sounds) {
 }
 
 Board.prototype.playSound = function(soundFile) {
-  var d		= document.getElementById("xddbgDiv");
-  d.innerHTML 	= d.v + " "+ v_board_js + " " + this.sounds + ":"+ soundFile + ".wav"
-
   if (!this.sound) {
     return;
   }
