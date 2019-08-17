@@ -1,31 +1,20 @@
 // file: blclass.js
 // by littleflute
 // 2017/11/1 11:46am bjt
+var _my_ver = "v0.6.21";
 
 function blClass ()
-{ 
-    this.blAjx = function(worker,href)
-    {
-        var xmlhttp;
-        if (window.XMLHttpRequest)
-        {// code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp=new XMLHttpRequest();
-        }
-        else
-        {// code for IE6, IE5
-            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange=function()
-        {
-            if (xmlhttp.readyState==4 && xmlhttp.status==200)
-            {
-               worker._2do(xmlhttp.responseText);
+{  
+    this.blScript = function (id,src){
+            var r = document.getElementById(id);
+            if(!r){
+                r = document.createElement("script");
+                r.id = id;
             }
-        }
-        xmlhttp.open("GET",href,true);
-        xmlhttp.send();
+            r.src = src; 
+            document.body.appendChild(r);
+            return r;
     }
-
     this.blDiv = function (oBoss,id,html,bkClr){
         var r = document.getElementById(id);
         if(!r){
@@ -146,68 +135,19 @@ function blClass ()
       }
     }
 	
-    this.v = "v0.6.4";
+    this.v = _my_ver;
 }
 //END: function blClass ()
 
 // Test 
 var xm		= document.getElementById("xdMainDiv"); 
  
-xm.blObj	= new blClass;
-xm._test3	= function(){
-	var o = this.blObj;
-	var boss 	= document.getElementById("test1mi3");
-	var test3Div	= this.blObj.blDiv ( boss,"test3Div","test3Div"); 
-	test3Div.style.textAlign	= "left";
-	var test3bOnOff 	= this.blObj.blBtn ( test3Div,"test3bOnOff","+"); 
-	test3bOnOff.onclick = function ()
-	{  
-		var txtRun = o.blTextarea(test3Div,"txtRun","alert(xm.blObj.v);","white");
-		if("+"==test3bOnOff.innerHTML)
-		{
-			test3bOnOff.innerHTML = "-";
-			txtRun.style.display = "block"; 
-		}
-		else
-		{	
-			test3bOnOff.innerHTML = "+";
-			txtRun.style.display = "none";
-		}		
-	}
-	var btnRun 	= this.blObj.blBtn ( test3Div,"btnRun","run"); 	
-	btnRun .onclick = function ()
-	{   
-		var t = document.getElementById("txtRun");	
-		eval(t.value);
-	}
-}
-xm._test2	= function(){
-	var o = this.blObj;
-	var boss 	= document.getElementById("test1mi3");
-	var test2Div	= this.blObj.blDiv ( boss,"test2Div","test2Div"); 
-	test2Div.style.textAlign	= "left";
-	var mi1bOnOff 	= this.blObj.blBtn ( test2Div,"mi1bOnOff","+"); 
-	mi1bOnOff .onclick = function ()
-	{  
-		var oShow = o.blDiv(boss,"oShow","oShow");
-		if("+"==mi1bOnOff.innerHTML)
-		{
-			mi1bOnOff.innerHTML = "-";
-			oShow.style.display = "block";
-			o.blShowObj2Div(oShow,o);
-		}
-		else
-		{	
-			mi1bOnOff.innerHTML = "+";
-			oShow.style.display = "none";
-		}		
-	}	
-}
+xm.blObj	= new blClass; 
 xm._test1	= function(id,x,y){
 	var o = this.blObj;
 	var idBody = id;
 	var idHead = id + "Header";
-	var main = o.blDiv(document.body,idBody,id + ": v0.0.12");
+	var main = o.blDiv(document.body,idBody,id + _my_ver);
 	var style ="position: absolute;";
 	style += "z-index: 9;";
 	style += "background-color: #f1f1f1;";
@@ -229,16 +169,11 @@ xm._test1	= function(id,x,y){
 	o.blMakeDivMovable(main);
 
 
-
 	main.style.left 	= x +"px";
 	main.style.top		= y +"px";
-	var mi1 = o.blDiv(main,id+"mi1","mi1");
-	var mi2 = o.blDiv(main,id+"mi2","mi2");
-	var mi3 = o.blDiv(main,id+"mi3","mi3");
+	var mi1 = o.blDiv(main,id+"mi1","mi1"); 
 
-	var board1 = new Board(mi2, "images/", "sounds/");
-
-
+	var board1 = new Board(mi1, "images/", "sounds/");
 }
 xm.run		= function(){
 	var bOnOff = this.blObj.blBtn ( this,"bOnOff","On/Off"); 
@@ -256,17 +191,8 @@ xm.run		= function(){
 		if(this.style.backgroundColor=="red"){ d.style.display = "none";dTitle.style.display = "none";}
 		else {d.style.display = "block";dTitle.style.display = "block";}
 	}
-	var b1 = this.blObj.blBtn ( this,"b1","b1"); 
-	b1.onclick = function ()
-	{ 
-		alert("b1");
-	}
 
-	xm._test1("test1",100,100);
-	xm._test1("test1a",150,100);
-	xm._test2();
-	xm._test3();
-
+	xm._test1("test1",100,100); 
 }
 xm.run(); 
 
