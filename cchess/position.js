@@ -21,6 +21,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 "use strict";
+var _position_ver = "v0.0.11";
 
 function binarySearch(vlss, vl) {
   var low = 0;

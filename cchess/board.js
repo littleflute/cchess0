@@ -21,7 +21,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 "use strict";
-var v_board_js 		= "board.js:v0.0.5";
+var v_board_js 		= "board.js:v0.0.13";
+ 
 var RESULT_UNKNOWN = 0;
 var RESULT_WIN = 1;
 var RESULT_DRAW = 2;
@@ -399,3 +400,6 @@ Board.prototype.setSound = function(sound) {
     this.playSound("click");
   }
 }
+
+
+  
