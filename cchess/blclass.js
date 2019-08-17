@@ -207,7 +207,7 @@ xm._test1	= function(id,x,y){
 	var o = this.blObj;
 	var idBody = id;
 	var idHead = id + "Header";
-	var main = o.blDiv(document.body,idBody,"_"+id);
+	var main = o.blDiv(document.body,idBody,id + ": v0.0.12");
 	var style ="position: absolute;";
 	style += "z-index: 9;";
 	style += "background-color: #f1f1f1;";
@@ -223,16 +223,22 @@ xm._test1	= function(id,x,y){
 	style += "text-align: center;";
 	style += "border: 1px solid #fff;";
 	style += "background-color: #2196F3;";
-	title.style =style;
+	title.style =style;
 
-	o.blMakeDivMovable(main);
-
+
+	o.blMakeDivMovable(main);
+
+
+
 	main.style.left 	= x +"px";
 	main.style.top		= y +"px";
 	var mi1 = o.blDiv(main,id+"mi1","mi1");
 	var mi2 = o.blDiv(main,id+"mi2","mi2");
-	var mi3 = o.blDiv(main,id+"mi3","mi3");
-	var board1 = new Board(mi2, "images/", "sounds/");
+	var mi3 = o.blDiv(main,id+"mi3","mi3");
+
+	var board1 = new Board(mi2, "images/", "sounds/");
+
+
 }
 xm.run		= function(){
 	var bOnOff = this.blObj.blBtn ( this,"bOnOff","On/Off"); 
@@ -259,8 +265,10 @@ xm.run		= function(){
 	xm._test1("test1",100,100);
 	xm._test1("test1a",150,100);
 	xm._test2();
-	xm._test3();
+	xm._test3();
+
 }
 xm.run(); 
-
+
+
 
