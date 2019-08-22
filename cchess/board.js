@@ -150,7 +150,7 @@ Board.prototype.computerLastMove = function() {
   return 1 - this.pos.sdPlayer == this.computer;
 }
 
-Board.prototype.addMove = function(mv, computerMove) {
+Board.prototype.XD_addMove = function(mv, computerMove) {
   if (!this.pos.legalMove(mv)) {
     return;
   }
@@ -160,7 +160,7 @@ Board.prototype.addMove = function(mv, computerMove) {
   }
   this.busy = true;
   if (!this.animated) {
-    this.postAddMove(mv, computerMove);
+    this.XD_postAddMove(mv, computerMove);
     return;
   }
 
@@ -180,7 +180,7 @@ Board.prototype.addMove = function(mv, computerMove) {
       style.left = xSrc + "px";
       style.top = ySrc + "px";
       style.zIndex = 0;
-      this_.postAddMove(mv, computerMove);
+      this_.XD_postAddMove(mv, computerMove);
     } else {
       style.left = MOVE_PX(xSrc, xDst, step);
       style.top = MOVE_PX(ySrc, yDst, step);
@@ -189,7 +189,7 @@ Board.prototype.addMove = function(mv, computerMove) {
   }, 16);
 }
 
-Board.prototype.postAddMove = function(mv, computerMove) {
+Board.prototype.XD_postAddMove = function(mv, computerMove) {
   if (this.mvLast > 0) {
     this.drawSquare(SRC(this.mvLast), false);
     this.drawSquare(DST(this.mvLast), false);
@@ -326,7 +326,7 @@ Board.prototype.response = function() {
   var this_ = this;
   this.busy = true;
   setTimeout(function() {
-    this_.addMove(board.search.searchMain(LIMIT_DEPTH, board.millis), true);
+    this_.XD_addMove(board.search.searchMain(LIMIT_DEPTH, board.millis), true);
     this_.thinking.style.visibility = "hidden";
   }, 250);
 }
@@ -349,7 +349,7 @@ Board.prototype.clickSquare = function(sq_) {
     this.drawSquare(sq, true);
     this.sqSelected = sq;
   } else if (this.sqSelected > 0) {
-    this.addMove(MOVE(this.sqSelected, sq), false);
+    this.XD_addMove(MOVE(this.sqSelected, sq), false);
   }
 }
 

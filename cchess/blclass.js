@@ -1,7 +1,7 @@
 // file: blclass.js
 // by littleflute
 // 2017/11/1 11:46am bjt
-var _my_ver = "v0.6.111";
+var _my_ver = "v0.6.112";
 
 function blClass ()
 {  
@@ -1267,7 +1267,9 @@ function SQ_X(sq) {
 function SQ_Y(sq) {
   return SQUARE_TOP + (RANK_Y(sq) - 3) * SQUARE_SIZE;
 }
-
+function MOVE_PX(src, dst, step) {
+  return Math.floor((src * step + dst * (MAX_STEP - step)) / MAX_STEP + .5) + "px";
+}
 function xdBoardClass(container, images, sounds) {
   this.images = images;
   this.sounds = sounds;
@@ -1372,6 +1374,153 @@ xdBoardClass.prototype.playSound = function(soundFile) {
         ".wav\" hidden=\"true\" autostart=\"true\" loop=\"false\" />";
   }
 }
+
+xdBoardClass.prototype.flipped = function(sq) {
+  return this.computer == 0 ? SQUARE_FLIP(sq) : sq;
+}
+xdBoardClass.prototype.XD_postAddMove = function(mv, computerMove) {
+  xm.log("XD_postAddMove0:" + mv +", computerMove="+computerMove + ",mvLast=" +this.mvLast);
+  if (this.mvLast > 0) {
+    this.drawSquare(SRC(this.mvLast), false);
+    this.drawSquare(DST(this.mvLast), false);
+  }
+  this.drawSquare(SRC(mv), true);
+  this.drawSquare(DST(mv), true);
+  this.sqSelected = 0;
+  this.mvLast = mv;
+
+  xm.log("XD_postAddMove1:" + mv +", computerMove="+computerMove + ",mvLast=" +this.mvLast);
+  if (this.pos.isMate()) {
+    this.playSound(computerMove ? "loss" : "win");
+    this.result = computerMove ? RESULT_LOSS : RESULT_WIN;
+
+    var pc = SIDE_TAG(this.pos.sdPlayer) + PIECE_KING;
+    var sqMate = 0;
+    for (var sq = 0; sq < 256; sq ++) {
+      if (this.pos.squares[sq] == pc) {
+        sqMate = sq;
+        break;
+      }
+    }
+    if (!this.animated || sqMate == 0) {
+      this.postMate(computerMove);
+      return;
+    }
+
+    sqMate = this.flipped(sqMate);
+    var style = this.imgSquares[sqMate].style;
+    style.zIndex = 256;
+    var xMate = SQ_X(sqMate);
+    var step = MAX_STEP;
+    var this_ = this;
+    var timer = setInterval(function() {
+      if (step == 0) {
+        clearInterval(timer);
+        style.left = xMate + "px";
+        style.zIndex = 0;
+        this_.imgSquares[sqMate].src = this_.images +
+            (this_.pos.sdPlayer == 0 ? "r" : "b") + "km.gif";
+        this_.postMate(computerMove);
+      } else {
+        style.left = (xMate + ((step & 1) == 0 ? step : -step) * 2) + "px";
+        step --;
+      }
+    }, 50);
+    return;
+  }
+
+  xm.log("XD_postAddMove2:" + mv +", computerMove="+computerMove + ",mvLast=" +this.mvLast);
+  var vlRep = this.pos.repStatus(3);
+  if (vlRep > 0) {
+    vlRep = this.pos.repValue(vlRep);
+    if (vlRep > -WIN_VALUE && vlRep < WIN_VALUE) {
+      this.playSound("draw");
+      this.result = RESULT_DRAW;
+      alertDelay("双方不变作和，辛苦了！");
+    } else if (computerMove == (vlRep < 0)) {
+      this.playSound("loss");
+      this.result = RESULT_LOSS;
+      alertDelay("长打作负，请不要气馁！");
+    } else {
+      this.playSound("win");
+      this.result = RESULT_WIN;
+      alertDelay("长打作负，祝贺你取得胜利！");
+    }
+    this.postAddMove2();
+    this.busy = false;
+    return;
+  }
+
+
+  xm.log("XD_postAddMove3:" + mv +", computerMove="+computerMove + ",mvLast=" +this.mvLast);
+
+  if (this.pos.captured()) {
+    var hasMaterial = false;
+    for (var sq = 0; sq < 256; sq ++) {
+      if (IN_BOARD(sq) && (this.pos.squares[sq] & 7) > 2) {
+        hasMaterial = true;
+        break;
+      }
+    }
+    if (!hasMaterial) {
+      this.playSound("draw");
+      this.result = RESULT_DRAW;
+      alertDelay("双方都没有进攻棋子了，辛苦了！");
+      this.postAddMove2();
+      this.busy = false;
+      return;
+    }
+  } else if (this.pos.pcList.length > 100) {
+    var captured = false;
+    for (var i = 2; i <= 100; i ++) {
+      if (this.pos.pcList[this.pos.pcList.length - i] > 0) {
+        captured = true;
+        break;
+      }
+    }
+    if (!captured) {
+      this.playSound("draw");
+      this.result = RESULT_DRAW;
+      alertDelay("超过自然限着作和，辛苦了！");
+      this.postAddMove2();
+      this.busy = false;
+      return;
+    }
+  }
+
+  if (this.pos.inCheck()) {
+    this.playSound(computerMove ? "check2" : "check");
+  } else if (this.pos.captured()) {
+    this.playSound(computerMove ? "capture2" : "capture");
+  } else {
+    this.playSound(computerMove ? "move2" : "move");
+  }
+  
+  xm.log("XD_postAddMove4:" + mv +", computerMove="+computerMove + ",mvLast=" +this.mvLast);
+  this.postAddMove2();
+
+  xm.log("XD_postAddMove5:" + mv +", computerMove="+computerMove + ",mvLast=" +this.mvLast);
+  this.response();
+}
+xdBoardClass.prototype.postAddMove2 = function() {
+  if (typeof this.onAddMove == "function") {
+    this.onAddMove();
+  }
+}
+xdBoardClass.prototype.response = function() {
+  if (this.search == null || !this.computerMove()) {
+    this.busy = false;
+    return;
+  }
+  this.thinking.style.visibility = "visible";
+  var this_ = this;
+  this.busy = true;
+  setTimeout(function() {
+    this_.XD_addMove(board.search.searchMain(LIMIT_DEPTH, board.millis), true);
+    this_.thinking.style.visibility = "hidden";
+  }, 250);
+}
+
 xdBoardClass.prototype.addMove = function(mv, computerMove) {
   if (!this.pos.legalMove(mv)) {
     return;
@@ -1380,20 +1529,22 @@ xdBoardClass.prototype.addMove = function(mv, computerMove) {
     this.playSound("illegal");
     return;
   }
-  this.busy = true;
-  xm.log("xd1");
+  this.busy = true; 
   if (!this.animated) {
-  //  this.postAddMove(mv, computerMove);
+    this.XD_postAddMove(mv, computerMove);
     return;
   }
-
+  
+  xm.log("xd1:" + mv);
   var sqSrc = this.flipped(SRC(mv));
   var xSrc = SQ_X(sqSrc);
   var ySrc = SQ_Y(sqSrc);
   var sqDst = this.flipped(DST(mv));
   var xDst = SQ_X(sqDst);
   var yDst = SQ_Y(sqDst);
+
   var style = this.imgSquares[sqSrc].style;
+  xm.log("xd1:" + xSrc + ","+ySrc + "::"+style);
   style.zIndex = 256;
   var step = MAX_STEP - 1;
   var this_ = this;
@@ -1403,7 +1554,7 @@ xdBoardClass.prototype.addMove = function(mv, computerMove) {
       style.left = xSrc + "px";
       style.top = ySrc + "px";
       style.zIndex = 0;
-      this_.postAddMove(mv, computerMove);
+      this_.XD_postAddMove(mv, computerMove);
     } else {
       style.left = MOVE_PX(xSrc, xDst, step);
       style.top = MOVE_PX(ySrc, yDst, step);
