@@ -1,7 +1,7 @@
 // file: blclass.js
 // by littleflute
 // 2017/11/1 11:46am bjt
-var _my_ver = "v0.6.112";
+var _my_ver = "v0.6.114";
 
 function blClass ()
 {  
@@ -1565,7 +1565,8 @@ xdBoardClass.prototype.addMove = function(mv, computerMove) {
 
 
 // Test 
-var xm		= document.getElementById("xdMainDiv"); 
+var xm		  = document.createElement("div");            
+    xm.id = "id_4_xm";//document.getElementById("xdMainDiv"); 
  
 xm.blObj	= new blClass; 
 xm._test1	= function(id,x,y){
@@ -1599,7 +1600,7 @@ xm._test1	= function(id,x,y){
 	var mi1 = o.blDiv(main,id+"mi1","mi1"); 
    // alert("333");
   //  o.blScript("id_js-Position","position.js");
-    var board1 = new xdBoardClass(mi1, "images/", "sounds/");
+    var board1 = new xdBoardClass(mi1, "https://littleflute.github.io/cchess0/cchess/images/", "https://littleflute.github.io/cchess0/cchess/sounds/");
 }
 xm.log = function(_s){
     
