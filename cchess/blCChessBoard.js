@@ -1,7 +1,7 @@
 // file: blclass.js
 // by littleflute
 // 2017/11/1 11:46am bjt
-var _my_ver = "v0.7.111";
+var _my_ver = "v0.7.112";
 
 function blClass ()
 {  
@@ -1344,8 +1344,7 @@ xdBoardClass.prototype.clickSquare = function(sq_) {
   var sq = sq_;//this.flipped(sq_);
   var pc = this.pos.squares[sq];
   if ((pc & SIDE_TAG(this.pos.sdPlayer)) != 0) {
-    this.playSound("click");
-    xm.log(sq + ":mvLast=" + this.mvLast);
+    this.playSound("click"); 
 
     if (this.mvLast != 0) {
       this.drawSquare(SRC(this.mvLast), false);
@@ -1357,8 +1356,7 @@ xdBoardClass.prototype.clickSquare = function(sq_) {
     this.drawSquare(sq, true);
     this.sqSelected = sq;
   } 
-  else if (this.sqSelected > 0) {
-    xm.log(MOVE(this.sqSelected, sq));
+  else if (this.sqSelected > 0) { 
     this.addMove(MOVE(this.sqSelected, sq), false);
   }
 }
@@ -1378,8 +1376,7 @@ xdBoardClass.prototype.playSound = function(soundFile) {
 xdBoardClass.prototype.flipped = function(sq) {
   return this.computer == 0 ? SQUARE_FLIP(sq) : sq;
 }
-xdBoardClass.prototype.XD_postAddMove = function(mv, computerMove) {
-  xm.log("XD_postAddMove0:" + mv +", computerMove="+computerMove + ",mvLast=" +this.mvLast);
+xdBoardClass.prototype.XD_postAddMove = function(mv, computerMove) { 
   if (this.mvLast > 0) {
     this.drawSquare(SRC(this.mvLast), false);
     this.drawSquare(DST(this.mvLast), false);
@@ -1388,8 +1385,7 @@ xdBoardClass.prototype.XD_postAddMove = function(mv, computerMove) {
   this.drawSquare(DST(mv), true);
   this.sqSelected = 0;
   this.mvLast = mv;
-
-  xm.log("XD_postAddMove1:" + mv +", computerMove="+computerMove + ",mvLast=" +this.mvLast);
+ 
   if (this.pos.isMate()) {
     this.playSound(computerMove ? "loss" : "win");
     this.result = computerMove ? RESULT_LOSS : RESULT_WIN;
@@ -1428,8 +1424,7 @@ xdBoardClass.prototype.XD_postAddMove = function(mv, computerMove) {
     }, 50);
     return;
   }
-
-  xm.log("XD_postAddMove2:" + mv +", computerMove="+computerMove + ",mvLast=" +this.mvLast);
+ 
   var vlRep = this.pos.repStatus(3);
   if (vlRep > 0) {
     vlRep = this.pos.repValue(vlRep);
@@ -1450,10 +1445,7 @@ xdBoardClass.prototype.XD_postAddMove = function(mv, computerMove) {
     this.busy = false;
     return;
   }
-
-
-  xm.log("XD_postAddMove3:" + mv +", computerMove="+computerMove + ",mvLast=" +this.mvLast);
-
+ 
   if (this.pos.captured()) {
     var hasMaterial = false;
     for (var sq = 0; sq < 256; sq ++) {
@@ -1495,11 +1487,8 @@ xdBoardClass.prototype.XD_postAddMove = function(mv, computerMove) {
   } else {
     this.playSound(computerMove ? "move2" : "move");
   }
-  
-  xm.log("XD_postAddMove4:" + mv +", computerMove="+computerMove + ",mvLast=" +this.mvLast);
+   
   this.postAddMove2();
-
-  xm.log("XD_postAddMove5:" + mv +", computerMove="+computerMove + ",mvLast=" +this.mvLast);
   this.response();
 }
 xdBoardClass.prototype.postAddMove2 = function() {
@@ -1534,8 +1523,7 @@ xdBoardClass.prototype.addMove = function(mv, computerMove) {
     this.XD_postAddMove(mv, computerMove);
     return;
   }
-  
-  xm.log("xd1:" + mv);
+   
   var sqSrc = this.flipped(SRC(mv));
   var xSrc = SQ_X(sqSrc);
   var ySrc = SQ_Y(sqSrc);
@@ -1543,8 +1531,7 @@ xdBoardClass.prototype.addMove = function(mv, computerMove) {
   var xDst = SQ_X(sqDst);
   var yDst = SQ_Y(sqDst);
 
-  var style = this.imgSquares[sqSrc].style;
-  xm.log("xd1:" + xSrc + ","+ySrc + "::"+style);
+  var style = this.imgSquares[sqSrc].style; 
   style.zIndex = 256;
   var step = MAX_STEP - 1;
   var this_ = this;
@@ -1598,31 +1585,11 @@ xm._test1	= function(id,x,y){
 	main.style.left 	= x +"px";
 	main.style.top		= y +"px";
 	var mi1 = o.blDiv(main,id+"mi1","mi1"); 
-   // alert("333");
-  //  o.blScript("id_js-Position","position.js");
-    var board1 = new xdBoardClass(mi1, "https://littleflute.github.io/cchess0/cchess/images/", "https://littleflute.github.io/cchess0/cchess/sounds/");
+
+  var board1 = new xdBoardClass(mi1, "https://littleflute.github.io/cchess0/cchess/images/", "https://littleflute.github.io/cchess0/cchess/sounds/");
 }
-xm.log = function(_s){
-    
-    xm.dbg.innerHTML = _s;
-} 
+
 xm.run		= function(){
-	var bOnOff = this.blObj.blBtn ( this,"bOnOff","On/Off"); 
-	var htmlTitle = '<a target = "_blank" href="blclass.js">blclass.js_';
-	htmlTitle += xm.blObj.v;
-	htmlTitle += '</a>';
-	var dTitle = this.blObj.blDiv ( this,"dTitle",htmlTitle);
-	dTitle.style="text-align:center;font-size:28px;font-family:ºÚÌå";
-	xm.dbg = this.blObj.blDiv ( this,"xddbgDiv","xddbgDiv");
-	 
-	bOnOff.onclick = function ()
-	{ 
-		new Audio("sounds/click.wav").play();
-		this.style.backgroundColor = this.style.backgroundColor=="red"?"green":"red";		
-		if(this.style.backgroundColor=="red"){ d.style.display = "none";dTitle.style.display = "none";}
-		else {d.style.display = "block";dTitle.style.display = "block";}
-	}
- 
 	xm._test1("test1",100,100); 
 }
 xm.run(); 
