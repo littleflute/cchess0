@@ -1,7 +1,7 @@
 // file: blclass.js
 // by littleflute
 // 2017/11/1 11:46am bjt
-var _my_ver = "v0.6.114";
+var _my_ver = "v0.7.111";
 
 function blClass ()
 {  
