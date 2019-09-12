@@ -1,7 +1,7 @@
 // file: blclass.js
 // by littleflute
 // 2017/11/1 11:46am bjt
-var _my_ver = "v0.7.112";
+var _my_ver = "v0.7.113";
 
 function blClass ()
 {  
@@ -1552,11 +1552,11 @@ xdBoardClass.prototype.addMove = function(mv, computerMove) {
 
 
 // Test 
-var xm		  = document.createElement("div");            
-    xm.id = "id_4_xm";//document.getElementById("xdMainDiv"); 
+var dTest		  = document.createElement("div");            
+    dTest.id = "id_4_xm1";//document.getElementById("xdMainDiv"); 
  
-xm.blObj	= new blClass; 
-xm._test1	= function(id,x,y){
+dTest.blObj	= new blClass; 
+dTest._test1	= function(id,x,y){
 	var o = this.blObj;
 	var idBody = id;
 	var idHead = id + "Header";
@@ -1589,10 +1589,6 @@ xm._test1	= function(id,x,y){
   var board1 = new xdBoardClass(mi1, "https://littleflute.github.io/cchess0/cchess/images/", "https://littleflute.github.io/cchess0/cchess/sounds/");
 }
 
-xm.run		= function(){
-	xm._test1("test1",100,100); 
-}
-xm.run(); 
-
+dTest._test1("xd-12 ",100,100); 
 
 
