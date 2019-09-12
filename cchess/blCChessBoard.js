@@ -1,7 +1,7 @@
 // file: blclass.js
 // by littleflute
 // 2017/11/1 11:46am bjt
-var _my_ver = "v0.7.113";
+var _my_ver = "v0.7.122";
 
 function blClass ()
 {  
@@ -1271,6 +1271,11 @@ function MOVE_PX(src, dst, step) {
   return Math.floor((src * step + dst * (MAX_STEP - step)) / MAX_STEP + .5) + "px";
 }
 function xdBoardClass(container, images, sounds) {
+  this.drawSquare = function(sq, selected) {
+      var img = this.imgSquares[sq];
+      img.src = this.images + xdPIECE_NAME[this.pos.squares[sq]] + ".gif";
+      img.style.backgroundImage = selected ? "url(" + this.images + "oos.gif)" : "";
+  }
   this.images = images;
   this.sounds = sounds;
   this.pos = new Position();
@@ -1315,17 +1320,12 @@ function xdBoardClass(container, images, sounds) {
     this.imgSquares.push(img);
   }
 
-
-  this.flushBoard();
+//  this.flushBoard();
 
 }
 
 
-xdBoardClass.prototype.drawSquare = function(sq, selected) {
-  var img = this.imgSquares[sq];
-  img.src = this.images + xdPIECE_NAME[this.pos.squares[sq]] + ".gif";
-  img.style.backgroundImage = selected ? "url(" + this.images + "oos.gif)" : "";
-}
+
 xdBoardClass.prototype.flushBoard = function() {
   this.mvLast = this.pos.mvList[this.pos.mvList.length - 1];
   for (var sq = 0; sq < 256; sq ++) {
@@ -1552,8 +1552,7 @@ xdBoardClass.prototype.addMove = function(mv, computerMove) {
 
 
 // Test 
-var dTest		  = document.createElement("div");            
-    dTest.id = "id_4_xm1";//document.getElementById("xdMainDiv"); 
+var dTest		  = document.createElement("div");             
  
 dTest.blObj	= new blClass; 
 dTest._test1	= function(id,x,y){
@@ -1578,9 +1577,7 @@ dTest._test1	= function(id,x,y){
 	style += "background-color: #2196F3;";
 	title.style =style;
 
-
 	o.blMakeDivMovable(main);
-
 
 	main.style.left 	= x +"px";
 	main.style.top		= y +"px";
@@ -1589,6 +1586,4 @@ dTest._test1	= function(id,x,y){
   var board1 = new xdBoardClass(mi1, "https://littleflute.github.io/cchess0/cchess/images/", "https://littleflute.github.io/cchess0/cchess/sounds/");
 }
 
-dTest._test1("xd-12 ",100,100); 
-
-
+dTest._test1("xd-12 ",100,100);  
