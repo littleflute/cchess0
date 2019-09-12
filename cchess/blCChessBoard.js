@@ -1,7 +1,8 @@
-// file: blclass.js
+// file: blCChessBoard.js
 // by littleflute
 // 2017/11/1 11:46am bjt
-var _my_ver = "v0.7.122";
+"use strict";
+var _my_ver = "v0.7.125";
 
 function blClass ()
 {  
@@ -1270,7 +1271,7 @@ function SQ_Y(sq) {
 function MOVE_PX(src, dst, step) {
   return Math.floor((src * step + dst * (MAX_STEP - step)) / MAX_STEP + .5) + "px";
 }
-function xdBoardClass(container, images, sounds) {
+function xdBoardClass(oContainer, images, sounds) {
   this.drawSquare = function(sq, selected) {
       var img = this.imgSquares[sq];
       img.src = this.images + xdPIECE_NAME[this.pos.squares[sq]] + ".gif";
@@ -1291,7 +1292,7 @@ function xdBoardClass(container, images, sounds) {
   this.result = RESULT_UNKNOWN;
   this.busy = false;
 
-  var style = container.style;
+  var style = oContainer.style;
   style.position = "relative";
   style.width = BOARD_WIDTH + "px";
   style.height = BOARD_HEIGHT + "px";
@@ -1316,11 +1317,11 @@ function xdBoardClass(container, images, sounds) {
       }
     } (sq);
 
-    container.appendChild(img);
+    oContainer.appendChild(img);
     this.imgSquares.push(img);
   }
 
-//  this.flushBoard();
+  this.flushBoard();
 
 }
 
