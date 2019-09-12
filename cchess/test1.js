@@ -2,7 +2,7 @@
 // by littleflute
 // 2017/11/1 11:46am bjt
 "use strict";
-var _my_ver = "v0.7.132";
+var _my_ver = "v0.7.125";
 
 function blClass ()
 {  
@@ -1552,10 +1552,12 @@ xdBoardClass.prototype.addMove = function(mv, computerMove) {
 }
 
 
-// Test       
-  
-var _run	= function(id,x,y){
-	var o = new blClass; 
+// Test 
+var dTest		  = document.createElement("div");             
+ 
+dTest.blObj	= new blClass; 
+dTest._test1	= function(id,x,y){
+	var o = this.blObj;
 	var idBody = id;
 	var idHead = id + "Header";
 	var main = o.blDiv(document.body,idBody,id + _my_ver);
@@ -1585,4 +1587,4 @@ var _run	= function(id,x,y){
   var board1 = new xdBoardClass(mi1, "https://littleflute.github.io/cchess0/cchess/images/", "https://littleflute.github.io/cchess0/cchess/sounds/");
 }
 
-_run("id_4_run ",100,100);  
+dTest._test1("xd-12 ",100,100);  
