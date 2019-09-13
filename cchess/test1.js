@@ -3,7 +3,7 @@
 // 2019/9/13 1:01am  org,usa
 
 "use strict";
-var _my_ver = "v0.0.24";
+var _my_ver = "v0.0.31";
 
 var BOARD_WIDTH = 521;
 var BOARD_HEIGHT = 577;
@@ -52,7 +52,7 @@ function xdBoardClass(oContainer, images, sounds) {
       img.style.backgroundImage = selected ? "url(" + this.images + "oos.gif)" : "";
       n++;
       s += img.style.left + " ";
-      bl$("d4dbg").innerHTML = "dbg" + sq + ":" +n + "<br>"+s;
+      bl$("d4dbg").innerHTML = "dbg1: " + sq + " : n= " +n + "<br> s="+s;
   }
   this.images = images;
   this.sounds = sounds; 
@@ -73,13 +73,13 @@ function xdBoardClass(oContainer, images, sounds) {
         continue;
       }
       var img = document.createElement("img");
-      var style = img.style;
-      style.position = "absolute"; 
-      style.left = SQ_X(sq);
-      style.top = SQ_Y(sq); 
-      style.width = SQUARE_SIZE;
-      style.height = SQUARE_SIZE;
-      style.zIndex = 0; 
+      
+      img.style.position = "absolute"; 
+      img.style.left = SQ_X(sq);
+      img.style.top = SQ_Y(sq); 
+      img.style.width = SQUARE_SIZE;
+      img.style.height = SQUARE_SIZE;
+      img.style.zIndex = 0; 
 
       oContainer.appendChild(img);
       this.imgSquares.push(img);
@@ -100,7 +100,7 @@ xdBoardClass.prototype.flushBoard = function() {
 // Test       
   
 var _run  = function(){    
-  var main = blo0.blDiv(document.body, "id_4_main", "main v0.13");
+  var main = blo0.blDiv(document.body, "id_4_main", "main21 " + _my_ver);
   var style ="position: absolute;";
   style += "z-index: 9;";
   style += "background-color: #f1f1f1;";
