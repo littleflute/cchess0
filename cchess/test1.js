@@ -1,9 +1,9 @@
 // file: test1.js
 // by littleflute
-// 2019/9/12 2:07am  org,usa
+// 2019/9/13 1:01am  org,usa
 
 "use strict";
-var _my_ver = "v0.0.22";
+var _my_ver = "v0.0.23";
 
 var BOARD_WIDTH = 521;
 var BOARD_HEIGHT = 577;
