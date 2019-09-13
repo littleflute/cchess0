@@ -3,7 +3,7 @@
 // 2019/9/13 1:01am  org,usa
 
 "use strict";
-var _my_ver = "v0.0.23";
+var _my_ver = "v0.0.24";
 
 var BOARD_WIDTH = 521;
 var BOARD_HEIGHT = 577;
@@ -100,7 +100,7 @@ xdBoardClass.prototype.flushBoard = function() {
 // Test       
   
 var _run  = function(){    
-  var main = blo0.blDiv(document.body, "id_4_main", "main v0.12");
+  var main = blo0.blDiv(document.body, "id_4_main", "main v0.13");
   var style ="position: absolute;";
   style += "z-index: 9;";
   style += "background-color: #f1f1f1;";
