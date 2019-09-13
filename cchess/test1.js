@@ -44,10 +44,15 @@ function IN_BOARD(sq) {  return IN_BOARD_[sq] != 0;  }
 
 
 function xdBoardClass(oContainer, images, sounds) {   
+  var n=0;
+  var s="";
   this.drawSquare = function(sq, selected) {
       var img = this.imgSquares[sq];
       img.src = this.images + xdPIECE_NAME[8] + ".gif";
       img.style.backgroundImage = selected ? "url(" + this.images + "oos.gif)" : "";
+      n++;
+      s += img.style.left + " ";
+      bl$("d4dbg").innerHTML = "dbg" + sq + ":" +n + "<br>"+s;
   }
   this.images = images;
   this.sounds = sounds; 
@@ -95,7 +100,7 @@ xdBoardClass.prototype.flushBoard = function() {
 // Test       
   
 var _run  = function(){    
-  var main = blo0.blDiv(document.body, "id_4_main", "main v0.2");
+  var main = blo0.blDiv(document.body, "id_4_main", "main v0.12");
   var style ="position: absolute;";
   style += "z-index: 9;";
   style += "background-color: #f1f1f1;";
@@ -116,6 +121,7 @@ var _run  = function(){
   blo0.blMakeDivMovable(main);
   
   main.v = blo0.blDiv(main, main.id + "v","v",blGrey[5]); 
+  main.d4dbg = blo0.blDiv(main, "d4dbg","d4dbg",blGrey[1]); 
 
   var board1 = new xdBoardClass(main.v, "https://littleflute.github.io/cchess0/cchess/images/", "https://littleflute.github.io/cchess0/cchess/sounds/");
 }
